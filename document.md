@@ -2,6 +2,25 @@
 
 [toc]
 
+## 目录结构
+
+```
+problem     #题目
+|-- num             #题目编号
+    |-- *.in
+    |-- *.out
+    |-- description.txt     #题目描述
+|-- problem.config
+
+program     #运行程序
+|-- code.py                 #代码
+|-- output.out              #代码输出结果
+
+main.py                     #主程序
+import_problem.py           #导入问题
+judge_problem.py            #判题
+```
+
 ## 导入问题：import_problem
 
 ### 内容
