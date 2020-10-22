@@ -39,7 +39,7 @@
 
 ### 项目名称
 
-简单在线评测系统（Easy Online Judge）
+**简单在线评测系统（Easy Online Judge）**
 
 ### 项目介绍
 
