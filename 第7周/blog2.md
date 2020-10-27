@@ -89,8 +89,10 @@
 | 技术项 | 具体技术 |
 | :-- | :-- |
 |  &nbsp;编程语言  &nbsp;|  &nbsp;JavaScript, HTML, CSS  &nbsp;|
-|  &nbsp;技术框架  &nbsp;| &nbsp;Vue &nbsp;   |
+|  &nbsp;技术框架  &nbsp;| &nbsp;Vue.js  &nbsp;   |
+|  &nbsp;与后端交互 &nbsp; |  &nbsp;Python eel  &nbsp;|
 |  &nbsp;测试环境  &nbsp;|  &nbsp;Chrome浏览器  &nbsp;|
+
 
 #### 1.4.2 **后台**
 
@@ -98,7 +100,9 @@
 | :-- | :-- |
 | &nbsp; 编程语言 &nbsp; |  &nbsp;Python &nbsp; |
 |  &nbsp;使用版本 &nbsp; |  &nbsp;3.x &nbsp; |
+| &nbsp;消息队列&nbsp; | &nbsp;Redis&nbsp; |
 |  &nbsp;数据库 &nbsp; | &nbsp; MySQL &nbsp; |
+
 
 ----
 
