@@ -1,12 +1,22 @@
 <template>
   <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+    <!-- <router-link to="/">Home</router-link> |
+    <router-link to="/about">About</router-link> -->
+    <router-view/>
   </div>
-  <router-view/>
+  <!-- <router-view/> -->
 </template>
+<script>
+  export default {
+    name: 'app',
+    components: {
 
+    }
+  }
+</script>>
 <style lang="less">
+@import './assets/css/base.css';
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
