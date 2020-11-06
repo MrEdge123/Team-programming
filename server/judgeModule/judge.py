@@ -13,7 +13,7 @@ userName: 用户名, 类型为字符串, 用于数据库查询
 problemId: 题目编号, 类型为数字, 用于数据库查询
 code: 评测代码, 类型为字符串
 language: 评测语言, 类型为字符串, 暂时支持的语言有: "C", "C++", "Python3" (注意大小写)
-submitTime: 提交时间, 类型为字符串
+submitTime: 提交时间, 类型为字符串, 格式为: YYYY-MM-DD HH:MM:SS, 例子: "1000-01-01 00:00:00"
 
 '''
 
@@ -39,15 +39,15 @@ def submitCode(userName, problmeId, code, language, submitTime):
     insert into submitStatus(
         problemId, userName, judgeResult,
         usedMemory, usedTime, language,
-        submitTime
+        submitTime, code
     )
-    values (%d, '%s', '%s', %d, %d, '%s', '%s')
+    values (%d, '%s', '%s', %d, %d, '%s', '%s', '%s')
     '''
 
     try:
         cur.execute(sql, [problmeId, userName, "评测中", 
                             -1, -1, language, 
-                            submitTime]
+                            submitTime, code]
                     )
         db.commit()
     except:
