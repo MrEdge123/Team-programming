@@ -2,36 +2,39 @@ import os
 import json
 import pymysql
 import random
+import subprocess
+import time
 
 # 外部接口部分
 
 '''
-void submitCode(userName, problmeId, code, language, submitTime)
+void submitCode(userName, problmeId, code, language)
 
 1.传入参数
 userName: 用户名, 类型为字符串, 用于数据库查询
 problemId: 题目编号, 类型为数字, 用于数据库查询
 code: 评测代码, 类型为字符串
 language: 评测语言, 类型为字符串, 暂时支持的语言有: "C", "C++", "Python3" (注意大小写)
-submitTime: 提交时间, 类型为字符串, 格式为: YYYY-MM-DD HH:MM:SS, 例子: "1000-01-01 00:00:00"
 
 '''
 
-def submitCode(userName, problmeId, code, language, submitTime):
+def submitCode(userName, problmeId, code, language):
     # 创建判题文件夹
-    basePath = "/home/OJ/judge"
+    basePath = "./judgeSpace"
+
+    submitTime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
     
-    path_id = random.randint(1, 100000)
+    path_id = random.randint(1, 1000000)
     path = basePath + "/" + str(path_id)
 
     while os.path.exists(path):
-        path_id = random.randint(1, 100000)
+        path_id = random.randint(1, 1000000)
         path = basePath + "/" + str(path_id)
     
     os.makedirs(path)
 
     # 连接数据库(待修改)
-    db = pymysql.connect("localhost","username","password","dbname")
+    db = pymysql.connect("8.129.147.77","user","123456","oj")
     cur = db.cursor()
 
     # 添加判题状态
@@ -41,19 +44,20 @@ def submitCode(userName, problmeId, code, language, submitTime):
         usedMemory, usedTime, language,
         submitTime, code
     )
-    values (%d, '%s', '%s', %d, %d, '%s', '%s', '%s')
+    values (%s, %s, %s, %s, %s, %s, %s, %s)
     '''
 
     try:
-        cur.execute(sql, [problmeId, userName, "评测中", 
+        cur.execute(sql, (problmeId, userName, "评测中", 
                             -1, -1, language, 
-                            submitTime, code]
+                            submitTime, code)
                     )
         db.commit()
-    except:
+    except BaseException as error:
         db.rollback()
         cur.close()
         db.close()
+        print("添加状态失败!! 错误信息:" + str(error))
         return
 
     # 判题
@@ -67,20 +71,21 @@ def submitCode(userName, problmeId, code, language, submitTime):
     # 修改判题状态
     sql = '''
     update submitStatus
-    set judgeResult='%s', usedMemory=%d, usedTime=%d
-    where submitTime='%s' and userName='%s' and problemId=%d
+    set judgeResult=%s, usedMemory=%s, usedTime=%s
+    where submitTime=%s and userName=%s and problemId=%s
     '''
 
     try:
         cur.execute(sql, 
-            [meaning[result["result"]], result["usedMemory"], result["usedTime"],
+            [meaning[result["result"]], result["timeUsed"], result["memoryUsed"],
                 submitTime, userName, problmeId]
         )
         db.commit()
-    except:
+    except BaseException as error:
         db.rollback()
         cur.close()
         db.close()
+        print("修改状态失败!! 错误信息:" + str(error))
         return
 
     cur.close()
@@ -138,10 +143,11 @@ language: 评测语言, 类型为字符串
 
 def judgeProblem(path, problemId, code, language):
     # 判题核心位置(待修改)
-    if not os.path.exists("judgeCore.cpp"):
+    if not os.path.exists("./judgeModule/judgeCore.cpp"):
+        print("判题核心路径错误!!, 应放在工作目录的judgeModule目录下")
         return
     
-    os.system("g++ judgeCore.cpp -o {}/core".format(path))
+    subprocess.run("g++ ./judgeModule/judgeCore.cpp -o {}/core".format(path), shell=True)
 
     result = {"result":"AC", "timeUsed":0, "memoryUsed":0, "errorMessage":""}
 
@@ -176,14 +182,14 @@ def judgeProblem(path, problemId, code, language):
     '''
 
     # 连接数据库(待修改)
-    db = pymysql.connect("localhost","username","password","dbname")
+    db = pymysql.connect("8.129.147.77","user","123456","oj")
     cur = db.cursor()
 
     # 获得时间限制和空间限制
     sql = '''
     select timeLimit, memoryLimit
     from problemContent
-    where problmeId = %d
+    where problemId = %s
     '''
 
     cur.execute(sql, [problemId])
@@ -195,8 +201,8 @@ def judgeProblem(path, problemId, code, language):
     # 获取题目评测数据
     sql = '''
     select inputData, outputData
-    from problmeTestData
-    where problmeId = %d
+    from problemTestData
+    where problemId = %s
     '''
 
     row = cur.execute(sql, [problemId])
@@ -204,9 +210,9 @@ def judgeProblem(path, problemId, code, language):
         line = cur.fetchone()
 
         # 写入一组评测数据
-        with open("input.txt", "w", encoding="utf-8") as inputFile:
+        with open("{}/input.txt".format(path), "w", encoding="utf-8") as inputFile:
             inputFile.write(line[0])
-        with open("answer.txt", "w", encoding="utf-8") as answerFile:
+        with open("{}/answer.txt".format(path), "w", encoding="utf-8") as answerFile:
             answerFile.write(line[1])
         
         # 评测一组数据
@@ -244,7 +250,8 @@ def compileCode(path, language):
         pass
 
     # 运行core
-    os.system("{0}/core -mode {1} -lang {2}".format(path, "cp", language))
+    subprocess.run("{0}/core -mode {1} -lang {2} -path {3}".format(
+        path, "cp", language, path), shell=True)
 
     # 解析结果
     result_json = ""
@@ -287,9 +294,9 @@ def runJudge(path, language, timeLimit, memoryLimit, checkMode = "ignore-not"):
         pass
 
     # 运行core
-    os.system("{0}/core -mode {1} -lang {2} -tl {3} -ml {4} -check {5}".format(
-            path, "run", language, timeLimit, memoryLimit, checkMode
-        )
+    subprocess.run("{0}/core -mode {1} -lang {2} -tl {3} -ml {4} -check {5} -path {6}".format(
+            path, "run", language, timeLimit, memoryLimit, checkMode, path
+        ), shell=True
     )
 
     # 解析结果
@@ -303,40 +310,3 @@ def runJudge(path, language, timeLimit, memoryLimit, checkMode = "ignore-not"):
         result["errorMessege"] = errorFile.read()
     
     return result
-
-# 测试
-if __name__ == "__main__":
-
-    c_code = '''
-
-#include <stdio.h>
-
-int main() {
-    printf("hello world\\n");
-    return 0;
-}
-
-    '''
-
-    cpp_code = '''
-
-#include <iostream>
-using namespace std;
-
-int main() {
-    cout << "hello world" << endl;
-    return 0;
-}
-
-    '''
-
-    python_code = '''
-
-print("hello world")
-
-    '''
-    
-    # print(judgeProblem(".", 0, c_code, "C"))
-    # print(judgeProblem(".", 0, cpp_code, "C++"))
-    # print(judgeProblem(".", 0, python_code, "Python3"))
-

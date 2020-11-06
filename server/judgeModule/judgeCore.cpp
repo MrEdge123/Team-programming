@@ -76,6 +76,7 @@ result.json的内容:
 日志: log.txt
 
 命令行参数:
+-path: 程序执行路径
 -mode: cp:编译, run:运行
 -lang: C, C++, Python3
 -tl: 1000 (单位:ms)
@@ -376,26 +377,28 @@ void write_result() {
 }
 
 int main(int argc, char **argv) {
+    char path[UNIT_KB];        //工作路径
     int mode = 0;              //运行模式, 1:编译, 2:运行
     int lang = 0;              //语言, 1:C, 2:C++, 3:Python3
     long long timeLimit = 0;   //时间限制
     long long memoryLimit = 0; //空间限制
     int checkMode = 0;         //结果对比模式
 
-    //创建log.txt
-    FILE *fp = fopen("log.txt", "w");
-    fclose(fp);
-
-    write_log("begin core\n");
-
-    if (argc < 3) {
-        write_log("parameter error!!\n");
-        write_log("argc: %d\n", argc);
-        return 1;
-    }
-
     //接收命令行参数
     for (int i = 1; i < argc - 1; i++) {
+        if (strcmp(argv[i], "-path") == 0) {
+            sprintf(path, "%s", argv[i + 1]);
+        }
+    }
+
+    if(strlen(path) == 0) return 1;
+
+    chdir(path);
+
+    for (int i = 1; i < argc - 1; i++) {
+        if (strcmp(argv[i], "-path") == 0) {
+            sprintf(path, "%s", argv[i + 1]);
+        }
         if (strcmp(argv[i], "-mode") == 0) {
             if (strcmp(argv[i + 1], "cp") == 0)
                 mode = 1;
@@ -450,10 +453,19 @@ int main(int argc, char **argv) {
         }
     }
 
+    write_log("path:%s\n", path);
+    write_log("begin core\n");
+
+    if (argc < 3) {
+        write_log("parameter error!!\n");
+        write_log("argc: %d\n", argc);
+        return 1;
+    }
+
     //检查是否合法
     if (mode == 0 || lang == 0) {
         write_log("parameter error!!\n");
-        write_log("lack of mode or lang\n");
+        write_log("lack of mode or lang or path\n");
         return 1;
     }
     if (mode == 2 && (timeLimit == 0 || memoryLimit == 0)) {
