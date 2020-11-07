@@ -77,7 +77,7 @@ def submitCode(userName, problmeId, code, language):
 
     try:
         cur.execute(sql, 
-            [meaning[result["result"]], result["timeUsed"], result["memoryUsed"],
+            [meaning[result["result"]], result["memoryUsed"], result["timeUsed"],
                 submitTime, userName, problmeId]
         )
         db.commit()
