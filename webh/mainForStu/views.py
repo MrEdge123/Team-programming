@@ -8,7 +8,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views import View
 from django.contrib.auth.decorators import login_required
-from mainForStu.models import ProblemsContent, ProblemTestData
+from mainForStu.models import ProblemsContent, ProblemTestData,SubmitStatus
 
 
 #学生界面获取总题目
@@ -92,5 +92,39 @@ class DetailsView(View):
     def post(self, request):
         pass
 
+class StateView(View):
 
+    def get(self, request):
+        print("------get--------")
+
+        # 判断用户是否登录
+        result = request.session.get('username', 'null')
+        if result == 'null':
+            print(result)
+
+        if 'username' in request.session:
+            print("------test--------")
+            print(request.session['username'])
+            ret = {"code": "200", "msg": "用户登录"}
+
+            # 存储数据
+            data = []
+
+            stateList = SubmitStatus.objects.values("userName","judgeResult","problemId","usedMemory",
+                                                    "usedTime","language", "submitTime")
+            print(stateList)
+            for i in range(len(stateList)):
+                print(stateList[i])
+                # 将model转化为字典
+                # problem_dict = model_to_dict(problemsList[i])
+                # print(problem_dict)
+                data.append(stateList[i])
+            ret = {"code": "200", "msg": "用户登录", "data": data}
+            return HttpResponse(json.dumps(ret, ensure_ascii=False))
+
+        ret = {"code": "400", "msg": "用户未登录"}
+        return HttpResponse(json.dumps(ret, ensure_ascii=False))
+
+    def post(self, request):
+        pass
 
