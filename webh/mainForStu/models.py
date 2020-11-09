@@ -18,7 +18,7 @@ class SubmitStatus(models.Model):
     userName = models.CharField(verbose_name="userName", max_length=50)
     problemId = models.CharField(verbose_name="problemId", max_length=50)
     judgeResult = models.CharField(verbose_name="judgeResult", max_length=500)
-    usedMemory = models.IntegerField(verbose_name="usedMemory", max_length=100)
+    usedMemory = models.CharField(verbose_name="usedMemory", max_length=100)
     usedTime = models.IntegerField(verbose_name="usedTime")
     language = models.CharField(verbose_name="language", max_length=50)
     code = models.TextField(verbose_name="code", max_length=500)
