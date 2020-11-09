@@ -1,40 +1,46 @@
 <template>
-  <div id="nav">
-    <!-- <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link> -->
+  <div id="#app" class="container">
+    <div class="link-list">
+      <router-link to="/home">主页</router-link>
+      <router-link to="/problemList">题目列表</router-link>
+      <router-link to="/situation">状态</router-link>
+      <router-link to="/help">帮助</router-link>
+      <router-link to="signIn">登录</router-link>
+      <router-link to="/login">注册</router-link>
+    </div>
     <router-view/>
+    <!-- <router-link to="/foot">页脚</router-link> -->
   </div>
-  <!-- <router-view/> -->
 </template>
+
 <script>
-  export default {
-    name: 'app',
-    components: {
 
-    }
+
+export default {
+  name: 'app',
+  components: {
+   
   }
-</script>>
-<style lang="less">
-@import './assets/css/base.css';
+}
+</script>
 
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+<style>
+*{
+  padding: 0;
+  margin: 0;
 }
 
-#nav {
-  padding: 30px;
+.link-list{
+  height: 40px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: slateblue;
+}
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+.link-list a{
+  color: white;
+  text-decoration: none;
+  font-size: 20px;
 }
 </style>
