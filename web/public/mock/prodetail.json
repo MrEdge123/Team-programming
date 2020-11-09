@@ -1,0 +1,51 @@
+{
+    "code": 0,
+    "data": [
+        {
+            "problemId": "10001",
+            "problemTitle":"题目标题",
+            "memoryLimit":"运行内存限制",
+            "timeLimit":"运行时间限制",
+            "inputDescription":"输入描述",
+            "outputDescription":"输出描述",
+            "Examples":[
+                {
+                    "inputData":"例1输入",
+                    "outputData":"例1输出",
+                    "explanation":"例1说明"
+                }
+            ]
+        },
+        {
+            "problemId": "10002",
+            "problemTitle":"题目标题",
+            "memoryLimit":"运行内存限制",
+            "timeLimit":"运行时间限制",
+            "inputDescription":"输入描述",
+            "outputDescription":"输出描述",
+            "Examples":[
+                {
+                    "inputData":"例1输入",
+                    "outputData":"例1输出",
+                    "explanation":"例1说明"
+                }
+            ]
+        },
+        {
+            "problemId": "10003",
+            "problemTitle":"题目标题",
+            "memoryLimit":"运行内存限制",
+            "timeLimit":"运行时间限制",
+            "inputDescription":"输入描述",
+            "outputDescription":"输出描述",
+            "Examples":[
+                {
+                    "inputData":"例1输入",
+                    "outputData":"例1输出",
+                    "explanation":"例1说明"
+                }
+            ]
+        }
+    ]
+}
+
