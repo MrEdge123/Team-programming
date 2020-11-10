@@ -24,16 +24,18 @@
             ></el-form></div
         ></el-col>
         <el-col :span="2"><div class="grid-content bg-purple">
-            <el-button @click="detileTrans(112)">搜索</el-button>
+            <el-button >搜索</el-button>
+            <!-- 没有实现搜索的功能-->
           </div></el-col>
       </el-row>
         </div>
       <div>
       <el-table
       :data="problemList"
-      style="width: 100%">
+      style="width: 100%"
+      @row-click="detileTrans">
       <el-table-column
-        prop="problemId" :formatter="formatterColumn"
+        prop="problemId" 
         label="题目编号"
         width="300">
       </el-table-column>
@@ -87,7 +89,7 @@ export default {
     };
   },
   mounted() {
-    this.init();
+    // this.init();
   },
   computed: {
     checkedCount() {
@@ -105,9 +107,9 @@ export default {
     //     window.console.log(this.problemList);
     //   });
     // },
-    detileTrans(item) {
+    detileTrans(row) {
       if (this.checkedCount) {
-        this.$router.push("/problemdetail/" + item); //跳转页面
+        this.$router.push("/problemDetail/" + row.problemId); //跳转页面
       }
     },
   },
