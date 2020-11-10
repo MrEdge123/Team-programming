@@ -57,7 +57,7 @@ class SubmitCodeView(View):
         if 'username' in request.session or True:
             userName = request.session['username']
             # userName = 'mredge'
-            problemId = request.POST.get('problemid')
+            problemId = request.POST.get('problemId')
             code = request.POST.get('code')
             language = request.POST.get('language')
 
