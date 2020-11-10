@@ -47,16 +47,16 @@ class SubmitCodeView(View):
 
 
     def post(self, request):
-        # result = request.session.get('username', 'null')
+        result = request.session.get('username', 'null')
 
         print("submitCode!!!")
 
-        # if result == 'null':
-        #    print(result)
+        if result == 'null':
+            print(result)
 
         if 'username' in request.session or True:
-            # userName = request.session['username']
-            userName = 'mredge'
+            userName = request.session['username']
+            # userName = 'mredge'
             problemId = request.POST.get('problemid')
             code = request.POST.get('code')
             language = request.POST.get('language')
