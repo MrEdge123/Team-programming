@@ -1,4 +1,8 @@
 import json
+import os
+import subprocess
+import time
+import random
 
 from django.forms import model_to_dict
 from django.http import HttpResponse
@@ -21,17 +25,17 @@ POST方法:
 前端传入:
 1.用户session
 2.请求条件
-problemId: 题目编号, 类型为整数
-language: 提交语言, 类型为字符串, 目前仅有: "C", "C++", "Python3"
-code: 提交代码, 类型为字符串
+problemId: 题目编号
+language: 提交语言, 目前仅有: C, C++, Python3
+code: 提交代码
 
 例子:
 problemId: 1
-language: "Python3"
-code: "print('hello world')"
+language: Python3
+code: print('hello world')
 
-后端返回:
-无
+后端返回内容:
+finish judge
 
 '''
 
@@ -43,21 +47,32 @@ class SubmitCodeView(View):
 
 
     def post(self, request):
-        result = request.session.get('username', 'null')
-        if result == 'null':
-            print(result)
+        # result = request.session.get('username', 'null')
 
-        if 'username' in request.session:
-            userName = request.session['username']
+        print("submitCode!!!")
+
+        # if result == 'null':
+        #    print(result)
+
+        if 'username' in request.session or True:
+            # userName = request.session['username']
+            userName = 'mredge'
             problemId = request.POST.get('problemid')
             code = request.POST.get('code')
             language = request.POST.get('language')
 
-            submitCode(userName, problemId, code, language)
+            print("problemId:" + problemId)
+            print("language:" + language)
+
+            self.runCode(userName, problemId, code, language)
+
+            return HttpResponse("finish judge")
+        else:
+            return HttpResponse("need to login")
 
 
     '''
-    void submitCode(userName, problmeId, code, language)
+    void runCode(userName, problemId, code, language)
 
     1.传入参数
     userName: 用户名, 类型为字符串, 用于数据库查询
@@ -66,7 +81,7 @@ class SubmitCodeView(View):
     language: 评测语言, 类型为字符串, 暂时支持的语言有: "C", "C++", "Python3" (注意大小写)
 
     '''
-    def submitCode(userName, problmeId, code, language):
+    def runCode(self, userName, problemId, code, language):
         # 创建判题文件夹
         basePath = "./judgeSpace"
 
@@ -82,7 +97,7 @@ class SubmitCodeView(View):
         os.makedirs(path)
 
         # 添加判题状态
-        status = submitStatus(  submitTime=submitTime, 
+        status = SubmitStatus(  submitTime=submitTime, 
                                 userName=userName,
                                 problemId=problemId,
                                 judgeResult="评测中",
@@ -94,7 +109,7 @@ class SubmitCodeView(View):
         status.save()
 
         # 判题
-        result = judgeProblem(path, problmeId, code, language)
+        result = self.judgeProblem(path, problemId, code, language)
 
         meaning = {"AC":"通过", "WA":"答案错误", 
                     "TE":"运行超时", "ME":"空间超限",
@@ -127,7 +142,7 @@ class SubmitCodeView(View):
     '''
 
     '''
-    dict judgeProblem(path, problmeId, code, language)
+    dict judgeProblem(path, problemId, code, language)
 
     1.传入参数
     path: 评测路径, 在改路径会生成评测数据, 类型为字符串
@@ -155,7 +170,7 @@ class SubmitCodeView(View):
     {"result":"AC", "timeUsed":30, "memoryUsed":1024, "errorMessage"}
 
     '''
-    def judgeProblem(path, problemId, code, language):
+    def judgeProblem(self, path, problemId, code, language):
         # 判题核心位置(待修改)
         if not os.path.exists("./judgeModel/judgeCore.cpp"):
             print("判题核心路径错误!!, 应放在工作目录的judgeModel目录下")
@@ -180,7 +195,7 @@ class SubmitCodeView(View):
             return
 
         # 编译
-        result = compileCode(path, language)
+        result = self.compileCode(path, language)
         if result["result"] == "CE": return result
 
         '''
@@ -211,7 +226,7 @@ class SubmitCodeView(View):
                 answerFile.write(data.outputData)
             
             # 评测一组数据
-            tmp_result = runJudge(path, language, timeLimit, memoryLimit)
+            tmp_result = self.runJudge(path, language, timeLimit, memoryLimit)
             if tmp_result["result"] != "AC":
                 result = tmp_result
                 break
@@ -234,7 +249,7 @@ class SubmitCodeView(View):
 
     '''
 
-    def compileCode(path, language):
+    def compileCode(self, path, language):
         # 创建文件
         with open("{}/error.txt".format(path), "w", encoding="utf-8") as errorFile:
             pass
@@ -278,7 +293,7 @@ class SubmitCodeView(View):
 
     '''
 
-    def runJudge(path, language, timeLimit, memoryLimit, checkMode = "ignore-not"):
+    def runJudge(self, path, language, timeLimit, memoryLimit, checkMode = "ignore-not"):
         # 创建文件
         with open("{}/error.txt".format(path), "w", encoding="utf-8") as errorFile:
             pass

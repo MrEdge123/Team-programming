@@ -20,6 +20,8 @@ from test_verify import views as xiuviews
 from login import views
 from mainForStu import views as mainView
 from mainForTea import views as teacherView
+from judgeModel import views as judgeView
+
 urlpatterns = [
     path(r'admin/', admin.site.urls),
     path(r'Mobileauthentication/', xiuviews.Mobileauthentication.as_view(), name="Mobileauthentication"),
@@ -40,4 +42,5 @@ urlpatterns = [
     path('deleteQuestion/', teacherView.deleteTestData.as_view(), name="deleteTestData"),
     path('alterTestData/', teacherView.alterTestData.as_view(), name="alterTestData"),
     path('getState/', mainView.StateView.as_view(), name="getState"),
+    path('submitCode/', judgeView.SubmitCodeView.as_view(), name='submitCode'),
 ]
