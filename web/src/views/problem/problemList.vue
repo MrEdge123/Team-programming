@@ -24,7 +24,8 @@
             ></el-form></div
         ></el-col>
         <el-col :span="2"><div class="grid-content bg-purple">
-            <el-button >搜索</el-button>
+            <el-button type="primary" icon="el-icon-search" @click="addProblem()">搜索</el-button>
+            <!-- <el-button >搜索</el-button> -->
             <!-- 没有实现搜索的功能-->
           </div></el-col>
       </el-row>
@@ -45,6 +46,7 @@
 
       </el-table-column>
     </el-table>
+
       </div>  
 </div>
 
@@ -112,6 +114,10 @@ export default {
         this.$router.push("/problemDetail/" + row.problemId); //跳转页面
       }
     },
+    addProblem(){
+      this.$router.push("/problemAdd");
+    }
+
   },
 };
 </script>

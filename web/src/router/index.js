@@ -4,6 +4,8 @@ import home from '../views/index/home.vue'
 import problemList from '../views/problem/problemList.vue'
 import problemDetail from '../views/problem/problemDetail.vue'
 import problemAdd from '../views/problem/problemAdd.vue'
+import problemEdit from '../views/problem/problemEdit.vue'
+import dataEdit from '../views/problem/dataEdit.vue'
 import situation from '../views/problem/situation.vue'
 import help from '../views/user/help.vue'
 import signIn from '../views/index/signIn.vue'
@@ -30,8 +32,16 @@ const routes = [
         component:problemDetail
     },
     {
-        path: '/problemAdd',
+        path: '/problemAdd',//--
         component:problemAdd
+    },
+    {
+        path: '/problemEdit/:problemId',//--/:problemId
+        component:problemEdit
+    },
+    {
+        path: '/dataEdit/:problemId',
+        component:dataEdit
     },
     {
         path: '/situation',
