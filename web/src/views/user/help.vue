@@ -1,5 +1,5 @@
 <template>
-  <p>help</p>
+    <el-button @click="router">修改个人信息</el-button>
 </template>
 
 <script>

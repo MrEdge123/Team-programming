@@ -1,6 +1,8 @@
 <template>
   <div>
       <p>状态</p>
+      <input type="text" placeholder="搜索">
+      <button onclick="">搜索</button>
   </div>
 </template>
 

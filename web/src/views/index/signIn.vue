@@ -1,26 +1,87 @@
 <template>
-  <div class="signIn-input">
-    <el-form>
-      <el-form-item>
-        <span>用户名</span>
-        <el-input></el-input>
-      </el-form-item>
-      <el-form-item>
-        <span>密码</span>
-        <el-input></el-input>
-      </el-form-item>
-      <el-button>登录</el-button>
-      <el-button>忘记密码</el-button>
-    </el-form>
+  <div class="signIn">
+    <div class="signIn-input">
+      <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm">
+        <el-form-item label="用户名" prop="username">
+          <el-input v-model="ruleForm.username"></el-input>
+        </el-form-item>
+        <el-form-item label="密码" prop="pass">
+          <el-input v-model="ruleForm.pass" type="password"></el-input>
+        </el-form-item>
+        <el-button @click="submitForm('ruleForm')">登录</el-button>
+        <el-button>忘记密码</el-button>
+      </el-form>
+    </div>
   </div>
 </template>
 
 <script>
-export default {
+import {getLoginMultidata} from '../../network/user' 
 
+export default {
+  data(){
+    var checkname = (rule, value, callback) => {
+      if(!value){
+          return callback(new Error('用户名不能为空'));
+      }else{
+          callback();
+      }
+    };   
+    var validatePass = (rule, value, callback) => {
+      if(value === ''){
+        return callback(new Error('请输入密码'))
+      }else {
+        callback();
+      }
+    }
+    return{
+      ruleForm: {
+        username: '',
+        pass: ''
+      },
+      rules: {
+        username: [
+          {validator: checkname, trigger: 'blur'}
+        ],
+        pass: [
+          {validator: validatePass, trigger: 'blur'}
+        ]
+      }
+    }
+  },
+  methods: {
+        submitForm(formname){
+            this.$refs[formname].validate((valid) => {
+                if(valid){
+                    console.log(this.ruleForm);
+                    getLoginMultidata({
+                        username: this.ruleForm.username,
+                        password: this.ruleForm.pass,
+                    }).then((res) => {
+                        console.log(res);
+                    }) 
+                }else{
+                    alert('err');
+                    return false;
+                }
+            });
+        }    
+  },
+  created(){
+    getLoginMultidata().then((res) => {
+      console.log(res);
+    })
+  }
 }
 </script>
 
 <style>
-
+.signIn{
+  display: flex;
+  justify-content: center;
+  margin-top: 80px;
+}
+.signIn-input{
+  width: 400px;
+}
 </style>
