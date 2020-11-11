@@ -23,19 +23,25 @@ GET方法:
 
 POST方法:
 前端传入:
-1.用户session
-2.请求条件
-problemId: 题目编号
-language: 提交语言, 目前仅有: C, C++, Python3
-code: 提交代码
+1.sessionid
+2.json, 内容:
+    problemId: 题目编号
+    language: 提交语言, 目前仅有: C, C++, Python3
+    code: 提交代码
 
 例子:
-problemId: 1
-language: Python3
-code: print('hello world')
+{
+    "problemId": "1",
+    "language": "Python3"
+    "code": "print('hello world')"
+}
 
-后端返回内容:
-finish judge
+后端返回内容json, 共5种:
+1.{"code": "400", "msg": "提交语言错误"}
+2.{"code": "400", "msg": "题目编号错误"}
+3.{"code": "200", "msg": "评测成功"}
+4.{"code": "400", "msg": "评测失败"}
+5.{"code": "400", "msg": "用户未登录"}
 
 '''
 
@@ -49,26 +55,37 @@ class SubmitCodeView(View):
     def post(self, request):
         result = request.session.get('username', 'null')
 
-        print("submitCode!!!")
-
         if result == 'null':
             print(result)
 
-        if 'username' in request.session or True:
+        if 'username' in request.session:
+            json_str = request.body
+            json_data = json.loads(json_str)
+
             userName = request.session['username']
             # userName = 'mredge'
-            problemId = request.POST.get('problemId')
-            code = request.POST.get('code')
-            language = request.POST.get('language')
+            problemId = json_data['problemId']
+            code = json_data['code']
+            language = json_data['language']
 
             print("problemId:" + problemId)
             print("language:" + language)
 
-            self.runCode(userName, problemId, code, language)
-
-            return HttpResponse("finish judge")
+            if language != 'C' and language != 'C++' and language != 'Python3':
+                ret = {"code": "400", "msg": "提交语言错误"}
+            else:
+                if len(ProblemsContent.objects.filter(problemId=problemId)) == 0:
+                    ret = {"code": "400", "msg": "题目编号错误"}
+                else:
+                    ok = self.runCode(userName, problemId, code, language)
+                    if ok:
+                        ret = {"code": "200", "msg": "评测成功"}
+                    else:
+                        ret = {"code": "400", "msg": "评测失败"}
         else:
-            return HttpResponse("need to login")
+            ret = {"code": "400", "msg": "用户未登录"}
+        
+        return HttpResponse(json.dumps(ret, ensure_ascii=False))
 
 
     '''
@@ -97,7 +114,8 @@ class SubmitCodeView(View):
         os.makedirs(path)
 
         # 添加判题状态
-        status = SubmitStatus(  submitTime=submitTime, 
+        try:
+            status = SubmitStatus(  submitTime=submitTime, 
                                 userName=userName,
                                 problemId=problemId,
                                 judgeResult="评测中",
@@ -106,7 +124,9 @@ class SubmitCodeView(View):
                                 language=language,
                                 code=code
                             )
-        status.save()
+            status.save()
+        except:
+            return False
 
         # 判题
         result = self.judgeProblem(path, problemId, code, language)
@@ -129,6 +149,7 @@ class SubmitCodeView(View):
         
         os.rmdir(path)
 
+        return True
 
     # 内部模块部分
     '''
