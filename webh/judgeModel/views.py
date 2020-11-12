@@ -55,8 +55,8 @@ class SubmitCodeView(View):
     def post(self, request):
         result = request.session.get('username', 'null')
 
-        if result == 'null':
-            print(result)
+        # if result == 'null':
+        #    print(result)
 
         if 'username' in request.session:
             json_str = request.body
@@ -68,8 +68,8 @@ class SubmitCodeView(View):
             code = json_data['code']
             language = json_data['language']
 
-            print("problemId:" + problemId)
-            print("language:" + language)
+            # print("problemId:" + problemId)
+            # print("language:" + language)
 
             if language != 'C' and language != 'C++' and language != 'Python3':
                 ret = {"code": "400", "msg": "提交语言错误"}
