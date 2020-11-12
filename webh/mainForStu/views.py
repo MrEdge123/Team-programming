@@ -15,16 +15,17 @@ from mainForStu.models import ProblemsContent, ProblemTestData,SubmitStatus
 class MainView(View):
 
     def get(self, request):
-        print("------get--------")
+        # print("------get--------")
 
         #判断用户是否登录
         result = request.session.get('username', 'null')
         if result == 'null':
-            print(result)
+            # print(result)
+            pass
 
         if 'username' in request.session:
-            print("------test--------")
-            print(request.session['username'])
+            # print("------test--------")
+            # print(request.session['username'])
             ret = {"code": "200", "msg": "用户登录"}
 
             #存储数据
@@ -35,9 +36,9 @@ class MainView(View):
             # test.filter()
             # problemsList = ProblemsContent.objects.filter()
             problemsList = ProblemsContent.objects.values("problemId", "problemTitle")
-            print(problemsList)
+            # print(problemsList)
             for i in range(len(problemsList)):
-                print(problemsList[i])
+                # print(problemsList[i])
                 #将model转化为字典
                 # problem_dict = model_to_dict(problemsList[i])
                 # print(problem_dict)
@@ -50,7 +51,7 @@ class MainView(View):
 
 
     def post(self, request):
-        print("------post--------")
+        # print("------post--------")
         ret = {"code": False, "error": "用户名或密码错误"}
         return HttpResponse(json.dumps(ret, ensure_ascii=False))
         # return render(request, "test.html", {})
@@ -59,12 +60,12 @@ class MainView(View):
 class DetailsView(View):
 
     def get(self, request):
-        print("------get--------")
+        # print("------get--------")
 
         # 判断用户是否登录
         if 'username' in request.session:
-            print("------test--------")
-            print(request.session['username'])
+            # print("------test--------")
+            # print(request.session['username'])
             ret = {"code": "200", "msg": "用户登录"}
 
             examples_data = []
@@ -78,7 +79,7 @@ class DetailsView(View):
             if len(examples) != 0:
                 for j in range(len(examples)):
                     example_dict = model_to_dict(examples[j])
-                    print(example_dict)
+                    # print(example_dict)
                     examples_data.append(example_dict)
                 # 将获取的数据存到相应的题目字典里
                 problem_dict['examples'] = examples_data
@@ -95,16 +96,17 @@ class DetailsView(View):
 class StateView(View):
 
     def get(self, request):
-        print("------get--------")
+        # print("------get--------")
 
         # 判断用户是否登录
         result = request.session.get('username', 'null')
         if result == 'null':
-            print(result)
+            # print(result)
+            pass
 
         if 'username' in request.session:
-            print("------test--------")
-            print(request.session['username'])
+            # print("------test--------")
+            # print(request.session['username'])
             ret = {"code": "200", "msg": "用户登录"}
 
             # 存储数据
@@ -112,9 +114,9 @@ class StateView(View):
 
             stateList = SubmitStatus.objects.values("userName","judgeResult","problemId","usedMemory",
                                                     "usedTime","language", "submitTime")
-            print(stateList)
+            # print(stateList)
             for i in range(len(stateList)):
-                print(stateList[i])
+                # print(stateList[i])
                 # 将model转化为字典
                 # problem_dict = model_to_dict(problemsList[i])
                 # print(problem_dict)

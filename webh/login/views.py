@@ -14,17 +14,17 @@ from login.models import User
 class RegisterView(View):
 
     def get(self, request):
-        print("------get--------")
+        # print("------get--------")
         return render(request, "register.html", {})
 
     def post(self, request):
-        print("------post--------")
+        # print("------post--------")
         username = request.POST.get("username", "")
         password = request.POST.get("password", "")
         email = request.POST.get("email", "")
         phone = request.POST.get("phone", "")
         name = request.POST.get("name", "")
-        print(username, password, name, email, phone)
+        # print(username, password, name, email, phone)
         user = User()
         user.userName = username
         user.userPassWord = password
@@ -43,30 +43,30 @@ class RegisterView(View):
 class LoginView(View):
 
     def get(self, request):
-        print("------get--------")
+        # print("------get--------")
         return render(request, "login.html", {})
 
 
     def post(self, request):
-        print("------post--------")
+        # print("------post--------")
         ret = {"code": "400", "msg": "用户名或密码错误"}
 
         username = request.POST.get("username", "")
         password = request.POST.get("password", "")
         isAdmin = request.POST.get("isAdmin", "")
         isAdmin = 0
-        print(username, password)
+        # print(username, password)
 
         try:
             obj = User.objects.filter(userName=username, userPassWord=password, isAdmin=isAdmin)
-            print(obj)
+            # print(obj)
         except:
             return render(request, "login.html", {})
 
         if len(obj) != 0:
-            print(obj[0].userName)
+            # print(obj[0].userName)
             login(request, obj[0])
-            print(request.user.userName)
+            # print(request.user.userName)
             request.session['username'] = username
             # request.session['user'] = obj[0]
             ret = {"code": "200", "msg": "登录成功"}

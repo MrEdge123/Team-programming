@@ -40,15 +40,15 @@ def Mobileauthentication(mobile_authentication):
             from_="+12622879319",  # 发送短信的美国手机号  区号 +1
             body="【Born To Win】您的验证码为：" + se + " （5分钟内有效），为了保证您的账户安全，请勿向任何人提供此验证码。感谢您使用Born To Win")
         # 打印发送结果
-        t = {}
-        t['captcha'] = int(se)
-        t['code'] = 1
-        t['time'] = get_current_time()
+        t=[]
+        t[0] = int(se)
+        t[1] = get_current_time()
         return t
         # return json.dumps(t, ensure_ascii=False)
     except BaseException as e:
-        g = {}
-        g['code'] = 0
+        g=[]
+        g[0] = 0
+        g[1] = str(0)
         return g
         # return json.dumps(g, ensure_ascii=False)
 
@@ -77,16 +77,15 @@ def Emailauthentication(postbox):
         smtpObj.login(mail_user, mail_pass)  # 登录验证
         smtpObj.sendmail(sender, receivers, message.as_string())  # 发送
         print("mail has been send successfully.")
-        t = {}
-        t['captcha'] = int(se)
-        t['code'] = 1
-        t['time'] = get_current_time()
+        t=[]
+        t[0] = int(se)
+        t[1] = get_current_time()
         return t
         # return json.dumps(t, ensure_ascii=False)
     except smtplib.SMTPException as e:
-        g = {}
-        g['code'] = 0
-        # return json.dumps(g, ensure_ascii=False)
+        g=[]
+        g[0] = 0
+        g[1] = str(0)
         return g
 
 def send_email2(SMTP_host, from_account, from_passwd, to_account, subject, content):

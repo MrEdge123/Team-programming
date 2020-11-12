@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'test_verify.apps.App01Config',
     'login.apps.LoginConfig',
     'mainForStu.apps.MainForStuConfig',
-    'judgeModel.apps.JudgemodelConfig',
 ]
 
 MIDDLEWARE = [
