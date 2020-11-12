@@ -1,6 +1,6 @@
 <template>
 <div>
-<div style="margin: 10px 0;"></div>
+<div style="margin: 10px 0;" class="container"></div>
 <el-row :gutter="20">
   <el-col :span="4"><div class="grid-content bg-purple"><h3>题目标题</h3></div></el-col>
   <el-col :span="16"><div class="grid-content bg-purple">
@@ -8,29 +8,32 @@
       type="textarea"
       autosize
       placeholder="请输入内容"
-      v-model="textarea">
+      v-model="proTitle">
     </el-input>
   </div></el-col>
 </el-row>
 <el-row :gutter="20">
-    <el-col :span="2"><div class="grid-content bg-purple">
+    <el-col :span="4"><div class="grid-content bg-purple">
         <span style="center">时间限制：</span>
         </div>
     </el-col>
-    <el-col :span="4"><div class="grid-content bg-purple">
+    <el-col :span="6"><div class="grid-content bg-purple">
     <el-form>
         <el-form-item class="petname">
-        <el-input v-model="inputId" placeholder="输入题目编号"></el-input> </el-form-item>
+        <el-input v-model="imTime" placeholder="">
+        <template slot="append">ms</template>
+        </el-input> </el-form-item>
         </el-form></div>
     </el-col>
-    <el-col :span="2"><div class="grid-content bg-purple">
+    <el-col :span="4"><div class="grid-content bg-purple">
         <span style="center">空间限制：</span>
         </div>
     </el-col>
-    <el-col :span="4"><div class="grid-content bg-purple">
+    <el-col :span="6"><div class="grid-content bg-purple">
        <el-form>
        <el-form-item class="petname">
-       <el-input v-model="inputTitle" placeholder="输入题目标题">
+       <el-input v-model="imRoom" placeholder="">   
+       <template slot="append">MB</template>
        </el-input> </el-form-item></el-form></div >
     </el-col>
 </el-row>
@@ -68,7 +71,8 @@
       </div></el-col>
 </el-row>
 <el-row>
-    <el-button></el-button>
+    <el-col :span="6"  ><el-button  @click="addPro()">新建题目</el-button></el-col>
+    <el-col :span="6"><el-button  @click="addCancle()" >取消</el-button></el-col>
 </el-row>
 </div>
 </template>
@@ -78,21 +82,53 @@ export default {
 data(){
     return{
         id: this.$route.params.problemId,
-        textarea:'',
+        proTitle:'',
+        imTime:'',
+        imRoom:'',
         dePro:'',
         dein:'',
         deout:'',
     }
+},
+methods:{
+    addPro(){
+        this.$confirm('请确保添加, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning',
+          center: true
+        }).then(() => {
+          this.$message({
+            type: 'success',
+            message: '添加成功!'
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消'
+          });
+        });
+      },
+      addCancle(){
+          this.$router.go(-1);
+          this.$message({
+            type: 'info',
+            message: '已取消'
+          });
+        }
 }
 }
 </script>
 
 <style>
+  /* .container{
+      display: flex;
+      flex-direction: column;
+      justify-content: ;
+      align-items: center;
+  } */
   .el-row {
     margin-bottom: 20px;
-    &:last-child {
-      margin-bottom: 0;
-    }
   }
   .el-col {
     border-radius: 4px;
@@ -114,4 +150,5 @@ data(){
     padding: 10px 0;
     background-color: #f9fafc;
   }
+
 </style>
