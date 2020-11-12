@@ -1,13 +1,15 @@
-import {request} from './request'
+import {axios} from './request'
 
 export function getRegisterMultidata(){
-    return request({
-        url: '/register/'
+    return axios({
+        url: '/register/',
+        method: 'post',
+        params: []
     })
 }
 
 export function getLoginMultidata(){
-    return request({
+    return axios({
         url: '/login/'
     })
 }

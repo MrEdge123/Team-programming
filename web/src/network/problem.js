@@ -1,7 +1,7 @@
-import {request} from './request'
+import {axios} from './request'
 
 export function getProblemMultiData(){
-    return request({
+    return axios({
         
     })
 }
