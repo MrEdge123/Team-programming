@@ -26,56 +26,55 @@ def index_zjw(request):
 # @login_required
 class Mobileauthentication(View):
     def get(self, request):
-        print("------get--------")
+        # print("------get--------")
         return render(request, "register.html", {})
     def post(self,request):
-        if 'user' in request.POST:
-            getemail =request.POST.get('user')
-            print(getemail)
-            if User.objects.filter(userphone=getemail):
-                getcode=tests.Mobileauthentication(getemail)
-                print(getcode)
-                return render(request, 'xiusj.html', {'success': '已发送短信'})
+
+        getemail =request.POST.get('user')
+        # print(getemail)
+        if User.objects.filter(userphone=getemail):
+
+            getcode=tests.Mobileauthentication(getemail)
+            # print(getcode)
+            if getcode[0]==0:
+                ret = {"captcha": '0', "msg":"短信发送出错，请检查联网情况", "data":[]}
+                return HttpResponse(json.dumps(ret, ensure_ascii=False))
             else:
-                return render(request,'xiusj.html',{'error':'没有查找到用户存在该手机'})
-        if 'pwd' in request.POST:
-            # getc = request.POST.get('user')
-            # if (getc==getcode):
-            #     return redirect('/index/')
-            pass
-        ret = {"code": "200", "msg": "修改成功"}
+                data=[{"captcha":getcode[0],"time":getcode[1]}]
+                ret = {"captcha": '0', "msg":"该手机未注册过用户", "data":data}
+                return HttpResponse(json.dumps(ret, ensure_ascii=False))
+        else:
+            ret = {"code":400, "msg":"该手机未注册过用户","data":[]}
+            return HttpResponse(json.dumps(ret, ensure_ascii=False))
+        ret = {"code":400, "msg":"系统出错","data":[]}
         return HttpResponse(json.dumps(ret, ensure_ascii=False))
 # @login_required
 class Emailauthentication(View):
     def get(self, request):
-        print("------get--------")
+        # print("------get--------")
         return render(request, "register.html", {})
     def post(self, request):
-        if 'user' in request.POST:
-            getemail =request.POST.get('user')
-            print(getemail)
-            if User.objects.filter(email=getemail):
-                getcode=tests.Emailauthentication(getemail)
-                print(type(getcode))
-                print(getcode["code"])
-                print(getcode["time"])
-                if(getcode["code"]==1):
-                    global captcha
-                    captcha=getcode['captcha']
-                    print(getcode['captcha'])
-                    return render(request, 'xiusj.html', {'success': '已发送邮件'})
-                else:
-                    return render(request, 'xiusj.html', {'success': '邮件发送错误'})
+
+        getemail =request.POST.get('user')
+        # print(getemail)
+        if User.objects.filter(email=getemail):
+            getcode=tests.Emailauthentication(getemail)
+            # print(type(getcode))
+            # print(getcode["code"])
+            # print(getcode["time"])
+            if(getcode[0]==0):
+                ret = {"captcha": '0', "msg": "邮件发送出错，请检查联网情况", "data": []}
+                return HttpResponse(json.dumps(ret, ensure_ascii=False))
+
             else:
-                return render(request,'xiusj.html',{'error':'没有查找到用户存在该手机'})
-        if 'pwd' in request.POST:
-            getc = request.POST.get('user')
-            # if (getc==captcha):
-            #     return redirect('/index/')
-            if (getc==123):
-                return redirect('/index/')
-            pass
-        return render(request,'xiuyx.html')
+                data = [{"captcha": getcode[0], "time": getcode[1]}]
+                ret = {"captcha": '0', "msg": "该手机未注册过用户", "data": data}
+                return HttpResponse(json.dumps(ret, ensure_ascii=False))
+        else:
+            ret = {"code": 400, "msg": "该邮箱未注册过用户", "data": []}
+            return HttpResponse(json.dumps(ret, ensure_ascii=False))
+        ret = {"code": 400, "msg": "系统出错", "data": []}
+        return HttpResponse(json.dumps(ret, ensure_ascii=False))
 # def tq(request):
 #     all_que=models.teacherquestion.objects.all()
 #     return render(request,'zhanshi.html',{'all_que':all_que})

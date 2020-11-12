@@ -53,41 +53,47 @@
 </template>
 
 <script>
-export default {
-  name: "problem",
+import {getProblemMultiData} from '../../network/problem'
+export default { 
+  // created(){
+  //     getProblemMultiData().then(res => {
+  //         this.problemList = res.data.data;
+  //         console.log(this.problemList);
+  //     })
+  // },
   data() {
     return {
       inputId: '',
       inputTitle:'',
-      problemList: [
-         {
-            "problemId": "10001",
-            "problemName": "浪险1",
-            "problemPrice": 99,
-            "problemNum": 2,
-            "problemImage": "1.jpg",
-            "problemTitle":"题目标题",
-            "checked": false
-        },
+      problemList:[
         {
-            "problemId": "10002",
-            "problemName": "浪险2",
-            "problemPrice": 199,
-            "problemNum": 2,
-            "problemImage": "2.jpg",
-            "problemTitle":"题目标题",
-            "checked": false
-        },
-        {
-            "problemId": "10003",
-            "problemName": "浪险3",
-            "problemPrice": 999,
-            "problemNum": 2,
-            "problemImage": "3.jpg",
-            "problemTitle":"题目标题",
-            "checked": true
-        }
-      ], //列表
+           "problemId": "10001",
+           "problemName": "浪险1",
+           "problemPrice": 99,
+           "problemNum": 2,
+           "problemImage": "1.jpg",
+           "problemTitle":"题目标题",
+           "checked": false
+       },
+       {
+           "problemId": "10002",
+           "problemName": "浪险2",
+           "problemPrice": 199,
+           "problemNum": 2,
+           "problemImage": "2.jpg",
+           "problemTitle":"题目标题",
+           "checked": false
+       },
+       {
+           "problemId": "10003",
+           "problemName": "浪险3",
+           "problemPrice": 999,
+           "problemNum": 2,
+           "problemImage": "3.jpg",
+           "problemTitle":"题目标题",
+           "checked": true
+       }
+     ], //列表
     };
   },
   mounted() {
@@ -103,9 +109,9 @@ export default {
   filters: {},
   methods: {
     // init() {
-    //   this.axios.get("/mock/problem.json").then((response) => {
+    //   axios.get("../../mock/problem.json").then((response) => {
     //     let res = response;
-    //     this.problemList = res.data.data;
+    //     this.problemList = res.data;
     //     window.console.log(this.problemList);
     //   });
     // },

@@ -6,6 +6,7 @@ import problemDetail from '../views/problem/problemDetail.vue'
 import problemAdd from '../views/problem/problemAdd.vue'
 import problemEdit from '../views/problem/problemEdit.vue'
 import dataEdit from '../views/problem/dataEdit.vue'
+import problemPlus from '../views/problem/problemPlus.vue'
 import situation from '../views/problem/situation.vue'
 import help from '../views/user/help.vue'
 import signIn from '../views/index/signIn.vue'
@@ -42,6 +43,10 @@ const routes = [
     {
         path: '/dataEdit/:problemId',
         component:dataEdit
+    },
+    {
+        path: '/problemPlus',//--/:problemId
+        component:problemPlus
     },
     {
         path: '/situation',
