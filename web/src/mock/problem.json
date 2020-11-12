@@ -1,0 +1,32 @@
+{
+    "code": 0,
+    "data":  [
+        {
+           "problemId": "10001",
+           "problemName": "浪险1",
+           "problemPrice": 99,
+           "problemNum": 2,
+           "problemImage": "1.jpg",
+           "problemTitle":"题目标题",
+           "checked": false
+       },
+       {
+           "problemId": "10002",
+           "problemName": "浪险2",
+           "problemPrice": 199,
+           "problemNum": 2,
+           "problemImage": "2.jpg",
+           "problemTitle":"题目标题",
+           "checked": false
+       },
+       {
+           "problemId": "10003",
+           "problemName": "浪险3",
+           "problemPrice": 999,
+           "problemNum": 2,
+           "problemImage": "3.jpg",
+           "problemTitle":"题目标题",
+           "checked": true
+       }
+     ]
+}

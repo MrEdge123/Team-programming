@@ -1,6 +1,6 @@
 <template>
 <div>
-<div style="margin: 10px 0;"></div>
+<div style="margin: 10px 0;" class="container"></div>
 <el-row :gutter="20">
   <el-col :span="4"><div class="grid-content bg-purple"><h3>题目标题</h3></div></el-col>
   <el-col :span="16"><div class="grid-content bg-purple">
@@ -71,7 +71,7 @@
       </div></el-col>
 </el-row>
 <el-row>
-    <el-col :span="6"  ><el-button type="text"  @click="addPro()">修改题目</el-button></el-col>
+    <el-col :span="6"  ><el-button  @click="addPro()">新建题目</el-button></el-col>
     <el-col :span="6"><el-button  @click="addCancle()" >取消</el-button></el-col>
 </el-row>
 </div>
@@ -92,7 +92,7 @@ data(){
 },
 methods:{
     addPro(){
-        this.$confirm('请确保修改, 是否继续?', '提示', {
+        this.$confirm('请确保添加, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning',
@@ -100,7 +100,7 @@ methods:{
         }).then(() => {
           this.$message({
             type: 'success',
-            message: '修改成功!'
+            message: '添加成功!'
           });
         }).catch(() => {
           this.$message({
@@ -121,11 +121,14 @@ methods:{
 </script>
 
 <style>
+  /* .container{
+      display: flex;
+      flex-direction: column;
+      justify-content: ;
+      align-items: center;
+  } */
   .el-row {
     margin-bottom: 20px;
-    &:last-child {
-      margin-bottom: 0;
-    }
   }
   .el-col {
     border-radius: 4px;
@@ -147,4 +150,5 @@ methods:{
     padding: 10px 0;
     background-color: #f9fafc;
   }
+
 </style>
