@@ -9,7 +9,7 @@ import dataEdit from '../views/problem/dataEdit.vue'
 import problemPlus from '../views/problem/problemPlus.vue'
 import situation from '../views/problem/situation.vue'
 import help from '../views/user/help.vue'
-import signIn from '../views/index/signIn.vue'
+import register from '../views/index/register.vue'
 import login from '../views/index/login.vue'
 import foot from '../components/foot.vue'
 
@@ -57,13 +57,13 @@ const routes = [
         component: help
     },
     {
-        path: '/signIn',
-        component: signIn
+        path: '/register',
+        component: register
     },
     {
         path: '/login',
         component: login
-    },    
+    },
     {
         path: '/foot',
         component: foot

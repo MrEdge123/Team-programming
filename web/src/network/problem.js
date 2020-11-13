@@ -1,6 +1,6 @@
 import {request} from './request'
 
-export function getProblemMultiData(){
+export function getProblemListMultiData(){
     return request({
         URL: '/getproblemlist/',
         method: 'get',
