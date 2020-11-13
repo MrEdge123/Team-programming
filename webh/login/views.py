@@ -79,12 +79,12 @@ class LoginView(View):
 class LoginForTeacher(View):
 
     def get(self, request):
-        print("------get--------")
+        # print("------get--------")
         return render(request, "login.html", {})
 
 
     def post(self, request):
-        print("------post--------")
+        # print("------post--------")
         ret = {"code": "200", "msg": "登陆成功"}
 
         username = request.POST.get("username", "")
@@ -107,7 +107,7 @@ class LoginForTeacher(View):
 class LogoutView(View):
 
     def get(self, request):
-        print("------get--------")
+        # print("------get--------")
         logout(request)
         request.session.flush()
         return render(request, "login.html", {})
@@ -117,7 +117,7 @@ class LogoutView(View):
 class JudgeInfo(View):
 
     def post(self, request):
-        print("------post--------")
+        # print("------post--------")
         ret = {"code": "200", "msg": "注册成功"}
         username = request.POST.get("username", "")
         email = request.POST.get("email", "")
@@ -149,7 +149,7 @@ class JudgeInfo(View):
 class ModifyInformation(View):
 
     def get(self, request):
-        print("------get--------")
+        # print("------get--------")
         ret = {"code": "200", "msg": "跳转成功"}
 
         # result = request.session.get('username', 'null')
@@ -178,7 +178,7 @@ class ModifyInformation(View):
 
 
     def post(self, request):
-        print("------post--------")
+        # print("------post--------")
         ret = {"code": "200", "msg": "修改成功"}
 
         username = request.POST.get("username", "")
