@@ -32,7 +32,7 @@
     <el-col :span="6"><div class="grid-content bg-purple">
        <el-form>
        <el-form-item class="petname">
-       <el-input v-model="imRoom" placeholder="">   
+       <el-input v-model="imRoom" placeholder="">
        <template slot="append">MB</template>
        </el-input> </el-form-item></el-form></div >
     </el-col>
@@ -123,9 +123,9 @@ methods:{
 <style>
   .el-row {
     margin-bottom: 20px;
-    &:last-child {
+    /* &:last-child {
       margin-bottom: 0;
-    }
+    } */
   }
   .el-col {
     border-radius: 4px;

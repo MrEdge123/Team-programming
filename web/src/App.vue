@@ -5,8 +5,8 @@
       <router-link to="/problemList">题目列表</router-link>
       <router-link to="/situation">状态</router-link>
       <router-link to="/help">帮助</router-link>
-      <router-link to="/signIn">登录</router-link>
-      <router-link to="/login">注册</router-link>
+      <router-link to="/login">登录</router-link>
+      <router-link to="/register">注册</router-link>
     </div>
     <navbar></navbar>
     <router-view/>

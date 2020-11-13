@@ -1,8 +1,10 @@
 import {request} from './request'
 
-export function getProblemMultiData(){
+export function getProblemListMultiData(){
     return request({
-
+      url: 'getproblemlist',
+      method: 'post',
+      params: []
     })
 }
 

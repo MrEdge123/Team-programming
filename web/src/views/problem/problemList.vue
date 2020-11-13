@@ -36,7 +36,7 @@
       style="width: 100%"
       @row-click="detileTrans">
       <el-table-column
-        prop="problemId" 
+        prop="problemId"
         label="题目编号"
         width="300">
       </el-table-column>
@@ -47,18 +47,19 @@
       </el-table-column>
     </el-table>
 
-      </div>  
+      </div>
 </div>
 
 </template>
 
 <script>
-import {getProblemMultiData} from '../../network/problem'
-export default { 
+import {getProblemListMultiData} from '../../network/problem'
+export default {
   created(){
-      getProblemMultiData().then(res => {
-          this.problemList = res.data;
-          console.log(this.problemList);
+      getProblemListMultiData().then((res) => {
+          // this.problemList = res.data;
+          // console.log(this.problemList);
+          console.log(res);
       })
   },
   data() {
