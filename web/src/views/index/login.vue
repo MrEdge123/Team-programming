@@ -59,6 +59,7 @@ export default {
                         password: this.ruleForm.pass,
                     }).then((res) => {
                         console.log(res);
+                        this.$router.push('/problemList');
                     })
                 }else{
                     alert('err');
@@ -66,11 +67,6 @@ export default {
                 }
             });
         }
-  },
-  created(){
-    getLoginMultidata().then((res) => {
-      console.log(res);
-    })
   }
 }
 </script>
