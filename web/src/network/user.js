@@ -1,7 +1,7 @@
-import {axios} from './request'
+import {request} from './request'
 
 export function getRegisterMultidata(){
-    return axios({
+    return request({
         url: '/register/',
         method: 'post',
         params: []
@@ -9,7 +9,7 @@ export function getRegisterMultidata(){
 }
 
 export function getLoginMultidata(){
-    return axios({
+    return request({
         url: '/login/'
     })
 }

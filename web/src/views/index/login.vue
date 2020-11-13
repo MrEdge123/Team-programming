@@ -1,5 +1,5 @@
 <template>
-    <div class="login">    
+    <div class="login">
         <div class="login-input">
             <el-form :model="ruleForm" :rules="rules" status-icon ref="ruleForm">
                 <el-form-item class="username" label="用户名" prop="username">
@@ -27,11 +27,11 @@
 import {getRegisterMultidata} from '../../network/user'
 
 export default {
-    created(){
-        getRegisterMultidata().then(res => {
-            console.log(res);
-        })
-    },
+    // created(){
+    //     getRegisterMultidata().then(res => {
+    //         console.log(res);
+    //     })
+    // },
 
     data(){
         var checkname = (rule, value, callback) => {
@@ -111,7 +111,7 @@ export default {
                     }).then((res) => {
                         console.log(res);
                         this.$router.push('/signIn');
-                    }) 
+                    })
                 }else{
                     alert('err');
                     return false;
@@ -122,7 +122,7 @@ export default {
 }
 </script>
 
-<style> 
+<style>
 .login{
     width: 100%;
     display: flex;
