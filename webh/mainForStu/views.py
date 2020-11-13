@@ -18,10 +18,10 @@ class MainView(View):
         # print("------get--------")
 
         #判断用户是否登录
-        result = request.session.get('username', 'null')
-        if result == 'null':
-            # print(result)
-            pass
+#         result = request.session.get('username', 'null')
+#         if result == 'null':
+#             # print(result)
+#             pass
 
         if 'username' in request.session:
             # print("------test--------")
@@ -52,9 +52,10 @@ class MainView(View):
 
     def post(self, request):
         # print("------post--------")
-        ret = {"code": False, "error": "用户名或密码错误"}
-        return HttpResponse(json.dumps(ret, ensure_ascii=False))
+        # ret = {"code": False, "error": "用户名或密码错误"}
+        # return HttpResponse(json.dumps(ret, ensure_ascii=False))
         # return render(request, "test.html", {})
+        pass
 
 
 class DetailsView(View):
@@ -99,10 +100,10 @@ class StateView(View):
         # print("------get--------")
 
         # 判断用户是否登录
-        result = request.session.get('username', 'null')
-        if result == 'null':
-            # print(result)
-            pass
+#         result = request.session.get('username', 'null')
+#         if result == 'null':
+#             # print(result)
+#             pass
 
         if 'username' in request.session:
             # print("------test--------")
