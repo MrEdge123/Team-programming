@@ -1,6 +1,14 @@
 <template>
   <div class="container">
     <div class="navbar-list">
+      <el-menu>
+        <el-menu-item>主页</el-menu-item>
+        <el-menu-item>题目列表</el-menu-item>
+        <el-menu-item>状态</el-menu-item>
+        <el-menu-item>帮助</el-menu-item>
+        <el-menu-item>登录</el-menu-item>
+        <el-menu-item>注册</el-menu-item>
+      </el-menu>
     </div>
   </div>
 </template>
@@ -11,7 +19,7 @@
 export default {
 //   name: 'navbar',
 //   components: {
-   
+
 //   }
 }
 </script>
