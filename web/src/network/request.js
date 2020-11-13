@@ -1,8 +1,4 @@
 import axios from 'axios'
-// import Vue from 'vue'
-// import store from '../store'
-// import ElementUI from 'element-ui'
-// import {ACCESS_TOKEN} from '../store/mutation-types'
 
 // 创建axios实例
 export function request(config){
@@ -10,7 +6,6 @@ export function request(config){
             baseURL: 'http://8.129.147.77:80',
             timeout: 5000
         })
-
         // axios的拦截器
         // 请求拦截的作用
         instance.interceptors.request.use(config => {

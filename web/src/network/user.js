@@ -10,7 +10,9 @@ export function getRegisterMultidata(){
 
 export function getLoginMultidata(){
     return request({
-        url: '/login/'
+        url: '/login/',
+        method: 'post',
+        params: []
     })
 }
 
