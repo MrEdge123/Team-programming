@@ -42,7 +42,7 @@
 <el-row>
   <el-col :span="3" ><div class="grid-content bg-purple-light"><h3>输入代码</h3></div></el-col>
 </el-row>
-<el-input
+  <el-input
   type="textarea"
   :autosize="{ minRows: 20, maxRows: 40}"
   placeholder="请输入内容"
