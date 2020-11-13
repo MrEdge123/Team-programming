@@ -22,7 +22,10 @@ const routes = [
       },
     {
         path: '/home',
-        component: home
+        component: home,
+        meta: {
+          isLogin: true
+        }
     },
     {
         path: '/problemList',
@@ -58,11 +61,17 @@ const routes = [
     },
     {
         path: '/register',
-        component: register
+        component: register,
+        meta: {
+          isLogin: false
+        }
     },
     {
         path: '/login',
-        component: login
+        component: login,
+        meta: {
+          isLogin: false
+        }
     },
     {
         path: '/foot',
