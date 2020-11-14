@@ -58,6 +58,9 @@ export default {
                         username: this.ruleForm.username,
                         password: this.ruleForm.pass,
                     }).then((res) => {
+                          const isLogin = sessionStorage.getItem('isLogin'); //获取本地存储的登陆信息
+                           console.log(isLogin)
+                      // window.sessionStorage.ssetItem("isLogin",res)
                         console.log(res);
                         this.$router.push('/problemList');
                     })

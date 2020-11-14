@@ -54,15 +54,15 @@
 
 <script>
 import axios from 'axios'
-import {getProblemMultiData} from '../../network/problem'
+import {getProblemListMultiData} from '../../network/problem'
 export default { 
   created(){
     this.init()
-      getProblemMultiData().then(res => {
-        console.log(res);
-          // this.problemList = res.data.data;
-          // console.log(this.problemList);
-      })
+      // getProblemListMultiData().then(res => {
+      //   console.log(res);
+      //     // this.problemList = res.data.data;
+      //     // console.log(this.problemList);
+      // })
   },
   data() {
     return {
