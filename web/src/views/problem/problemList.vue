@@ -55,17 +55,7 @@
 <script>
 import axios from 'axios'
 import {getProblemListMultiData} from '../../network/problem'
-<<<<<<< HEAD
 export default {
-  created(){
-    this.init()
-      getProblemListMultiData().then(res => {
-        console.log(res);
-          // this.problemList = res.data.data;
-          // console.log(this.problemList);
-      })
-=======
-export default { 
   created(){
     this.init()
       // getProblemListMultiData().then(res => {
@@ -73,7 +63,6 @@ export default {
       //     // this.problemList = res.data.data;
       //     // console.log(this.problemList);
       // })
->>>>>>> 5d7b6180947e89fd55df5199357d65695428d077
   },
   data() {
     return {
@@ -109,7 +98,7 @@ export default {
     init(){
           axios({url:'http://8.129.147.77/getproblemlist',//post这里写请求网址
           method:'get', //然后method改成get
-  
+
           })
             .then(res=>{
               console.log(res)

@@ -30,18 +30,11 @@ const routes = [
     },
     {
         path: '/problemList',
-<<<<<<< HEAD
-        component: problemList,
-        meta: {
-          isLogin: true
-        }
-=======
         name: 'problemList',
         component: problemList,
         // meta: {
         //     isLogin: true
         //   }
->>>>>>> 5d7b6180947e89fd55df5199357d65695428d077
     },
     {
         path: '/problemDetail/:problemId',
