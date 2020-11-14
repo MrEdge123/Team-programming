@@ -12,6 +12,7 @@ export function getLoginMultidata(){
     return request({
         url: '/login/',
         method: 'post',
+        // data:{}
         params: []
     })
 }

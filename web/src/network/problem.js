@@ -3,7 +3,7 @@ import {request} from './request'
 export function getProblemListMultiData(){
     return request({
         URL: '/getproblemlist/',
-        method: 'get',
+        method: 'get'
     })
 }
 
