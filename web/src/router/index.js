@@ -29,7 +29,10 @@ const routes = [
     },
     {
         path: '/problemList',
-        component: problemList
+        component: problemList,
+        meta: {
+          isLogin: true
+        }
     },
     {
         path: '/problemDetail/:problemId',

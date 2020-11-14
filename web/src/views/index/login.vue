@@ -58,8 +58,22 @@ export default {
                         username: this.ruleForm.username,
                         password: this.ruleForm.pass,
                     }).then((res) => {
+                      if(res['code']== 200){
+                        localStorage.clear()            //清除
+                        localStorage.setItem('info',1)  //保存
+                        localStorage['flag'] = 1
+
+                        sessionStorage.clear()
+                        sessionStorage.setItem('username',JSON.stringify(res.username)) //转换为JSON数据
+                        sessionStorage.setItem['token'] = JSON.stringify(res.token)
+
+                        this.$message({
+                          type: 'success',
+                          message: '登录成功'
+                        });
                         console.log(res);
                         this.$router.push('/problemList');
+                      }
                     })
                 }else{
                     alert('err');

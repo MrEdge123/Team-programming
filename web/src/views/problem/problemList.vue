@@ -54,11 +54,11 @@
 
 <script>
 import axios from 'axios'
-import {getProblemMultiData} from '../../network/problem'
-export default { 
+import {getProblemListMultiData} from '../../network/problem'
+export default {
   created(){
     this.init()
-      getProblemMultiData().then(res => {
+      getProblemListMultiData().then(res => {
         console.log(res);
           // this.problemList = res.data.data;
           // console.log(this.problemList);
@@ -83,7 +83,7 @@ export default {
   },
   filters: {},
   methods: {
-    //axios本身比较完善可以不用封装
+    // axios本身比较完善可以不用封装
     // init(){
     //       axios({url:'http://8.129.147.77/getproblemlist',//post这里写请求网址
     //       method:'post', //然后method改成get
@@ -102,7 +102,7 @@ export default {
             .then(res=>{
               console.log(res)
             })
-    },    
+    },
     detileTrans(row) {
       if (this.checkedCount) {
         this.$router.push("/problemDetail/" + row.problemId); //跳转页面
