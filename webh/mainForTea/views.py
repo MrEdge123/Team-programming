@@ -39,7 +39,7 @@ class GetDataListView(View):
                 #将model转化为字典
                 problem_dict = model_to_dict(dataList[i])
                 # print(problem_dict)
-                data.append(dataList[i])
+                data.append(problem_dict)
             ret = {"code": "200", "msg": "成功获取", "data": data}
             return HttpResponse(json.dumps(ret, ensure_ascii=False))
 
