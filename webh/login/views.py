@@ -72,7 +72,8 @@ class LoginView(View):
             # print(request.user.userName)
             request.session['username'] = username
             # request.session['user'] = obj[0]
-            ret = {"code": "200", "msg": "登录成功"}
+            session_key = request.session.session_key
+            ret = {"code": "200", "msg": "登录成功", "data": {"sessionid":session_key}}
 
         return HttpResponse(json.dumps(ret, ensure_ascii=False))
         # return render(request, "main.html", {})
