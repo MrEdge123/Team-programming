@@ -86,7 +86,7 @@ class DetailsView(View):
                 problem_dict['examples'] = examples_data
 
             ret = {"code": "200", "msg": "用户登录，数据获取成功", "data": problem_dict}
-            return HttpResponse(json.dumps(ret, ensure_ascii=False))
+            return HttpResponse(json.dumps(ret, ensure_ascii=False, cls=DateEncoder))
 
         ret = {"code": "400", "msg": "用户未登录"}
         return HttpResponse(json.dumps(ret, ensure_ascii=False))
@@ -123,7 +123,7 @@ class StateView(View):
                 # print(problem_dict)
                 data.append(stateList[i])
             ret = {"code": "200", "msg": "用户登录，数据获取成功", "data": data}
-            return HttpResponse(json.dumps(ret, ensure_ascii=False))
+            return HttpResponse(json.dumps(ret, ensure_ascii=False, cls=DateEncoder))
 
         ret = {"code": "400", "msg": "用户未登录"}
         return HttpResponse(json.dumps(ret, ensure_ascii=False))
