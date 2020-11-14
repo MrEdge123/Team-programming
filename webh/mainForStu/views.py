@@ -43,7 +43,7 @@ class MainView(View):
                 # problem_dict = model_to_dict(problemsList[i])
                 # print(problem_dict)
                 data.append(problemsList[i])
-            ret = {"code": "200", "msg": "用户登录", "data": data}
+            ret = {"code": "200", "msg": "用户已登录，获取数据成功", "data": data}
             return HttpResponse(json.dumps(ret, ensure_ascii=False))
 
         ret = {"code": "400", "msg": "用户未登录"}
@@ -85,7 +85,7 @@ class DetailsView(View):
                 # 将获取的数据存到相应的题目字典里
                 problem_dict['examples'] = examples_data
 
-            ret = {"code": "200", "msg": "用户登录", "data": problem_dict}
+            ret = {"code": "200", "msg": "用户登录，数据获取成功", "data": problem_dict}
             return HttpResponse(json.dumps(ret, ensure_ascii=False))
 
         ret = {"code": "400", "msg": "用户未登录"}
@@ -122,7 +122,7 @@ class StateView(View):
                 # problem_dict = model_to_dict(problemsList[i])
                 # print(problem_dict)
                 data.append(stateList[i])
-            ret = {"code": "200", "msg": "用户登录", "data": data}
+            ret = {"code": "200", "msg": "用户登录，数据获取成功", "data": data}
             return HttpResponse(json.dumps(ret, ensure_ascii=False))
 
         ret = {"code": "400", "msg": "用户未登录"}

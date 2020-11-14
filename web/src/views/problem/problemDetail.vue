@@ -40,14 +40,17 @@
 <div style="margin: 60px 0;"></div>
 <div>
 <el-row>
-  <el-col :span="3" ><div class="grid-content bg-purple-light"><h3>输入代码</h3></div></el-col>
+  <el-col :span="3" ><div class="grid-content bg-purple-light"><h3>输入代码</h3></div></el-col>z
 </el-row>
-  <el-input
-  type="textarea"
-  :autosize="{ minRows: 20, maxRows: 40}"
-  placeholder="请输入内容"
-  v-model="textarea">
-</el-input>
+  <div>
+    <div></div>
+    <el-input
+    type="textarea"
+    :autosize="{ minRows: 20, maxRows: 40}"
+    placeholder="请输入内容"
+    v-model="textarea">
+  </el-input>
+  </div>
 </div>
 <el-button >提交代码</el-button>
 </div>
