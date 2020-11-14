@@ -109,6 +109,7 @@ export default {
     init(){
           axios({url:'http://8.129.147.77/getproblemlist',//post这里写请求网址
           method:'get', //然后method改成get
+  
           })
             .then(res=>{
               console.log(res)

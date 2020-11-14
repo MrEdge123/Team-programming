@@ -25,7 +25,8 @@
 
 <script>
 import {getRegisterMultidata} from '../../network/user'
-
+import axios from 'axios'
+import Qs from 'qs'
 export default {
     // created(){
     //     getRegisterMultidata().then(res => {
@@ -103,12 +104,17 @@ export default {
                 if(valid){
                     alert('注册成功');
                     console.log(this.ruleForm);
-                    getRegisterMultidata({
+                    let data={//在data里面用键值对的形式写要写的参数
                         username: this.ruleForm.username,
                         name: this.ruleForm.petname,
                         password: this.ruleForm.pass,
                         email: this.ruleForm.email
-                    }).then((res) => {
+                     }
+                      axios({url:'http://8.129.147.77/register/',//post这里写请求网址
+                     method:'post', //然后method改成get
+                    headers:{'Content-Type':'application/x-www-form-urlencoded'},
+                        data:Qs.stringify(data)
+                        }).then((res) => {
                         console.log(res);
                         this.$router.push('/login');
                     })

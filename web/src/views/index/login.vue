@@ -17,6 +17,8 @@
 
 <script>
 import {getLoginMultidata} from '../../network/user'
+import axios from 'axios'
+import Qs from 'qs'
 
 export default {
   data(){
@@ -52,16 +54,19 @@ export default {
   methods: {
         submitForm(formname){
             this.$refs[formname].validate((valid) => {
+              console.log(valid)
                 if(valid){
                     console.log(this.ruleForm);
-                    getLoginMultidata({
+                    let data={//在data里面用键值对的形式写要写的参数
                         username: this.ruleForm.username,
                         password: this.ruleForm.pass,
-                    }).then((res) => {
-                          const isLogin = sessionStorage.getItem('isLogin'); //获取本地存储的登陆信息
-                           console.log(isLogin)
-                      // window.sessionStorage.ssetItem("isLogin",res)
-                        console.log(res);
+                     }
+                     axios({url:'http://8.129.147.77/login/',//post这里写请求网址
+                     method:'post', //然后method改成get
+                     headers:{'Content-Type':'application/x-www-form-urlencoded'},
+                     data:Qs.stringify(data)
+                        }).then((res) => {
+                      console.log(res)
                         this.$router.push('/problemList');
                       }
                     })
