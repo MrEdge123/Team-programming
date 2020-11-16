@@ -6,12 +6,23 @@ pid = os.fork()
 if pid:
     sys.exit(0)
 
+os.umask(0)
 os.setsid()
-log = open("/home/log.txt", "a+", encoding='utf8')
-log.write("pid:" + str(pid))
 
-cnt = 100
+_pid = os.fork()
+if _pid:
+    sys.exit(0)
 
-while cnt:
+sys.stdout.flush()
+sys.stdin.flush()
+
+if not os.path.exists('./IO'):
+    os.makedirs('./IO')
+
+with open('/dev/null') as in_file, open('./IO/out.txt', 'w') as out_file, open('./IO/err.txt', 'w') as err_file:
+    os.dup2(in_file.fileno(), sys.stdin.fileno())
+    os.dup2(out_file.fileno(), sys.stdout.fileno())
+    os.dup2(err_file.fileno(), sys.stderr.fileno())
+
+while True:
     proc = subprocess.run("python3 manage.py runserver 0.0.0.0:80", shell=True)
-    cnt -= 1

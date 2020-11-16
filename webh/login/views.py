@@ -56,7 +56,7 @@ class LoginView(View):
         username = request.POST.get("username", "")
         password = request.POST.get("password", "")
         isAdmin = request.POST.get("isAdmin", "")
-        isAdmin = 0
+        # isAdmin = 0
         # print(username, password)
 
         try:
