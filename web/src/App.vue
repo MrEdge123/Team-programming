@@ -8,21 +8,27 @@
       <router-link to="/login">登录</router-link>
       <router-link to="/register">注册</router-link>
     </div>
-    <!-- <navbar></navbar> -->
-    <!-- <el-main class="detailed-content"> -->
-	    <router-view />
-     <!-- </el-main> -->
-  </div>
+    <navbar></navbar>
+    <router-view/>
+    <!-- <router-link to="/foot">页脚</router-link> -->
+  </div> 
 </template>
 
 <script>
-import navbar from './components/navbar'
+// import navBar from './components/navBar'
 
 export default {
   name: 'app',
   components: {
-
-  }
+    // navBar
+  },
+  // method:{
+  //     loadComment(){
+  //     var stroage = window.localStorage;
+  //     var username = stroage["username"];
+  //     console.log(username);
+  //   },
+  // }
 }
 </script>
 

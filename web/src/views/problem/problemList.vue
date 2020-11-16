@@ -54,15 +54,13 @@
 
 <script>
 import axios from 'axios'
+axios.defaults.withCredentials = true
 import {getProblemListMultiData} from '../../network/problem'
 export default {
   created(){
+    // var username = localStorage.getItem('username');
+    // var password = localStorage.getItem('password');
     this.init()
-      // getProblemListMultiData().then(res => {
-      //   console.log(res);
-      //     // this.problemList = res.data.data;
-      //     // console.log(this.problemList);
-      // })
   },
   data() {
     return {
@@ -74,40 +72,19 @@ export default {
   mounted() {
     // this.init();
   },
-  computed: {
-    checkedCount() {
-      return this.problemList.some((item) => {
-        return item.checked;
-      });
-    },
-  },
-  filters: {},
   methods: {
-    // axios本身比较完善可以不用封装
-    // init(){
-    //       axios({url:'http://8.129.147.77/getproblemlist',//post这里写请求网址
-    //       method:'post', //然后method改成get
-    //       data:{//在data里面用键值对的形式写要写的参数
-    //         userName: 123,
-    //         password: 123,
-    //       }})
-    //         .then(res=>{
-    //           console.log(res)
-    //         })
-    // },
     init(){
           axios({url:'http://8.129.147.77/getproblemlist',//post这里写请求网址
           method:'get', //然后method改成get
-
-          })
-            .then(res=>{
-              console.log(res)
+          headers:{'Content-Type':"application/json;charset=UTF-8"},
+          withCredentials : true
+          }).then(res=>{
+              this.problemList = res.data.data;
+              console.log(this.problemList)
             })
     },
     detileTrans(row) {
-      if (this.checkedCount) {
         this.$router.push("/problemDetail/" + row.problemId); //跳转页面
-      }
     },
     addProblem(){
       this.$router.push("/problemAdd");

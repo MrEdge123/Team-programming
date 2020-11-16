@@ -3,16 +3,21 @@ import App from './App.vue'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import router from './router'
-import axios from 'axios'//
-// import Vuex from 'vuex'//引入状态
+import axios from 'axios'
+// import tool from './assets/js/tool'
 
 
+// Vue.prototype.tool = tool;
 Vue.use(ElementUI)
 Vue.config.productionTip = false
+axios.defaults.withCredentials=true;
+Vue.prototype.$axios = axios;
+// Vue.http.options.emulateJSON = true;
+// Vue.http.options.xhr = { withCredentials: true}; 
 
-axios.defaults.withCredentials=true
 
 new Vue({
   router,
   render: h => h(App),
 }).$mount('#app')
+

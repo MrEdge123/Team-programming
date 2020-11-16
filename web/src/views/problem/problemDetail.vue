@@ -1,10 +1,5 @@
 <template>
 <div>
-  <!-- <el-row>
-  <el-col :span="24"><div class="grid-content bg-purple-dark">
-    <h1 style="center">{{id}}：题目标题</h1>
-    </div></el-col>
-</el-row> -->
 <el-row type="flex" class="row-bg">
   <el-col :span="20" ><div class="grid-content bg-purple-light">
       <h1>{{id}}：题目标题</h1>
@@ -40,7 +35,7 @@
 <div style="margin: 60px 0;"></div>
 <div>
 <el-row>
-  <el-col :span="3" ><div class="grid-content bg-purple-light"><h3>输入代码</h3></div></el-col>z
+  <el-col :span="3" ><div class="grid-content bg-purple-light"><h3>输入代码</h3></div></el-col>
 </el-row>
   <div>
     <div></div>
@@ -48,7 +43,7 @@
     type="textarea"
     :autosize="{ minRows: 20, maxRows: 40}"
     placeholder="请输入内容"
-    v-model="textarea">
+    v-model="code">
   </el-input>
   </div>
 </div>
@@ -58,12 +53,55 @@
 </template>
 
 <script>
+import axios from 'axios'
+import Qs from 'qs'
 export default {
+  created(){
+  //  init(this.$route.params.problemId)
+  },
 data(){
     return{
-       id: this.$route.params.problemId,
-       textarea: '',
+       id:'',
+       code: '',
+       problemDetail:[],
     }
+},
+  mounted() {
+    this.init();
+  },
+methods:{
+    init(){
+        const id= this.$route.params.problemId
+          axios({url:'http://8.129.147.77/getDetails',//post这里写请求网址
+          method:'get', //然后method改成get
+          headers:{'Content-Type':"application/json;charset=UTF-8"},
+          params:{id},
+          withCredentials : true
+          }).then(res=>{
+              this.problemDetail = res.data.data;
+              console.log(this.problemDetail)
+            })
+    },
+     submitCode(){
+            const code=this.code
+            axios({url:'http://8.129.147.77/login/',//post这里写请求网址
+            method:'post', //然后method改成get
+            headers:{'Content-Type':'application/x-www-form-urlencoded'},
+            data:Qs.stringify(code)
+              }).then((res) => {
+              console.log(res);
+              if(res.data.code == '200'){
+                // var ses = window.localStorage;
+                // var id = JSON.stringify(data.username);
+                // var pass = JSON.stringify(data.password)
+                // ses.setItem("username",id);
+                // ses.setItem("password",pass);
+                this.$router.push({path:'/problemList',query:{code:200,msg:'登录成功'}});
+              }else{
+                alert('用户名或密码错误。');
+              }
+          })
+     }
 }
 }
 </script>

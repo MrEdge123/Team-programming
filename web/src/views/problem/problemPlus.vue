@@ -8,7 +8,7 @@
       type="textarea"
       autosize
       placeholder="请输入内容"
-      v-model="proTitle">
+      v-model="problemTitle">
     </el-input>
   </div></el-col>
 </el-row>
@@ -20,7 +20,7 @@
     <el-col :span="6"><div class="grid-content bg-purple">
     <el-form>
         <el-form-item class="petname">
-        <el-input v-model="imTime" placeholder="">
+        <el-input v-model="memoryLimit" placeholder="">
         <template slot="append">ms</template>
         </el-input> </el-form-item>
         </el-form></div>
@@ -32,7 +32,7 @@
     <el-col :span="6"><div class="grid-content bg-purple">
        <el-form>
        <el-form-item class="petname">
-       <el-input v-model="imRoom" placeholder="">   
+       <el-input v-model="timeLimit" placeholder="">   
        <template slot="append">MB</template>
        </el-input> </el-form-item></el-form></div >
     </el-col>
@@ -44,7 +44,7 @@
         type="textarea"
         :autosize="{ minRows: 1}"
         placeholder="请输入内容"
-        v-model="dePro">
+        v-model="problemDescription">
         </el-input>
       </div></el-col>
 </el-row>
@@ -55,7 +55,7 @@
         type="textarea"
         :autosize="{ minRows: 1}"
         placeholder="请输入内容"
-        v-model="dein">
+        v-model="inputDescription">
         </el-input>
       </div></el-col>
 </el-row>
@@ -66,7 +66,7 @@
         type="textarea"
         :autosize="{ minRows: 1}"
         placeholder="请输入内容"
-        v-model="deout">
+        v-model="outputDescription">
         </el-input>
       </div></el-col>
 </el-row>
@@ -78,16 +78,18 @@
 </template>
 
 <script>
+import axios from 'axios'
+import Qs from 'qs'
 export default {
 data(){
     return{
-        id: this.$route.params.problemId,
-        proTitle:'',
-        imTime:'',
-        imRoom:'',
-        dePro:'',
-        dein:'',
-        deout:'',
+        // id: this.$route.params.problemId,
+        problemTitle:'',
+        memoryLimit:'',
+        timeLimit:'',
+        problemDescription:'',
+        inputDescription:'',
+        outputDescription:'',
     }
 },
 methods:{
@@ -98,10 +100,30 @@ methods:{
           type: 'warning',
           center: true
         }).then(() => {
-          this.$message({
-            type: 'success',
-            message: '添加成功!'
-          });
+                        let data={//在data里面用键值对的形式写要写的参数
+                        problemTitle:this.problemTitle,
+                        memoryLimit:this.memoryLimit,
+                        timeLimit:this.timeLimit,
+                        problemDescription:this.problemDescription,
+                        inputDescription:this.inputDescription,
+                        outputDescription:this.outputDescription,
+                     }
+                     axios({url:'http://8.129.147.77/login/',//post这里写请求网址
+                     method:'post', //然后method改成get
+                    //  headers:{'Content-Type':"application/json;charset=UTF-8"},
+                     headers:{'Content-Type':'application/x-www-form-urlencoded'},
+                     data:Qs.stringify(data)
+                        }).then((res) => {
+                        console.log(res)
+                        if(res.data.code == '200'){
+                                    this.$message({
+                                    type: 'success',
+                                    message: '添加成功!'
+                                  });
+                        }else{
+                          alert('出现错误。');
+                        }
+                    })
         }).catch(() => {
           this.$message({
             type: 'info',
