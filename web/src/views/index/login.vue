@@ -65,6 +65,7 @@ export default {
                      }
                      axios({url:'http://8.129.147.77/login/',//post这里写请求网址
                      method:'post', //然后method改成get
+                    //  headers:{'Content-Type':"application/json;charset=UTF-8"},
                      headers:{'Content-Type':'application/x-www-form-urlencoded'},
                      data:Qs.stringify(data)
                         }).then((res) => {
