@@ -70,14 +70,6 @@ export default {
   mounted() {
     // this.init();
   },
-  computed: {
-    checkedCount() {
-      return this.problemList.some((item) => {
-        return item.checked;
-      });
-    },
-  },
-  filters: {},
   methods: {
     init(){
           axios({url:'http://8.129.147.77/getproblemlist',//post这里写请求网址
@@ -90,9 +82,7 @@ export default {
             })
     },
     detileTrans(row) {
-      if (this.checkedCount) {
         this.$router.push("/problemDetail/" + row.problemId); //跳转页面
-      }
     },
     addProblem(){
       this.$router.push("/problemAdd");
