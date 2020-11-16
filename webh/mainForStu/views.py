@@ -78,6 +78,7 @@ class DetailsView(View):
 
             # 如果题目存在例子则获取例子
             examples = ProblemTestData.objects.filter(problemId=pno, isExample=1)
+            examples = examples.values("number","inputData", "outputData","explanation")
             if len(examples) != 0:
                for j in range(len(examples)):
                     # example_dict = model_to_dict(examples[j])
