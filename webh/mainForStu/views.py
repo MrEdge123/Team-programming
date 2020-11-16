@@ -74,7 +74,7 @@ class DetailsView(View):
             pno = request.POST.get("problemId", "")
 
             problem = ProblemsContent.objects.filter(problemId=pno)
-            problem_dict = model_to_dict(problem)
+            problem_dict = model_to_dict(problem[0])
 
             # 如果题目存在例子则获取例子
             examples = ProblemTestData.objects.filter(problemId=pno, isExample=1)
