@@ -61,10 +61,6 @@ export default {
     var username = localStorage.getItem('username');
     var password = localStorage.getItem('password');
     this.init()
-<<<<<<< HEAD
-
-=======
->>>>>>> baf55bb71f433bc777f32b98516fadcdc5cc55a9
   },
   data() {
     return {
