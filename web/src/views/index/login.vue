@@ -54,7 +54,6 @@ export default {
   methods: {
         submitForm(formname){
             this.$refs[formname].validate((valid) => {
-              console.log(valid)
                 if(valid){
                     console.log(this.ruleForm);
                     let data={//在data里面用键值对的形式写要写的参数
@@ -63,11 +62,12 @@ export default {
                      }
                      axios({url:'http://8.129.147.77/login/',//post这里写请求网址
                      method:'post', //然后method改成get
+                    //  headers:{'Content-Type':"application/json;charset=UTF-8"},
                      headers:{'Content-Type':'application/x-www-form-urlencoded'},
                      data:Qs.stringify(data)
                         }).then((res) => {
-                      console.log(res)
-                        this.$router.push('/problemList');
+                      console.log(res) 
+                       this.$router.push('/problemList');
                     })
                 }else{
                     alert('err');

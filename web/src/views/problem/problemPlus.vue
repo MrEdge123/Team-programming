@@ -8,7 +8,7 @@
       type="textarea"
       autosize
       placeholder="请输入内容"
-      v-model="proTitle">
+      v-model="problemTitle">
     </el-input>
   </div></el-col>
 </el-row>
@@ -20,7 +20,7 @@
     <el-col :span="6"><div class="grid-content bg-purple">
     <el-form>
         <el-form-item class="petname">
-        <el-input v-model="imTime" placeholder="">
+        <el-input v-model="memoryLimit" placeholder="">
         <template slot="append">ms</template>
         </el-input> </el-form-item>
         </el-form></div>

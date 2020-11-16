@@ -7,7 +7,7 @@
     @click.native.prevent="plusProblem()">新建题目</el-button></el-col>
   </el-row>
   <el-table
-    :data="tableData"
+    :data="problemList"
     style="width: 100%" >
     <el-table-column
       fixed
@@ -16,7 +16,7 @@
       width="150">
     </el-table-column>
     <el-table-column
-      prop="name"
+      prop="problemTitle"
       label="题目标题"
       width="300">
     </el-table-column> 
@@ -26,7 +26,7 @@
       width="80">
       <template slot-scope="scope">
         <el-button type="primary" icon="el-icon-edit" circle
-         @click.native.prevent="editProblem(scope.$index, tableData)" size="small"></el-button>
+         @click.native.prevent="editProblem(scope.$index, problemList)" size="small"></el-button>
       </template>
     </el-table-column>
     <el-table-column
@@ -35,7 +35,7 @@
       width="80">
       <template slot-scope="scope">
         <el-button type="primary" icon="el-icon-edit" circle
-        @click.native.prevent="editData(scope.$index, tableData )" size="small"></el-button>
+        @click.native.prevent="editData(scope.$index, problemList )" size="small"></el-button>
       </template>
     </el-table-column>   
     <el-table-column
@@ -44,7 +44,7 @@
       width="80">
       <template slot-scope="scope">
         <el-button type="danger" icon="el-icon-delete" circle
-        @click.native.prevent="deleteRow(scope.$index, tableData)" size="small"></el-button>
+        @click.native.prevent="deleteRow(scope.$index, problemList)" size="small"></el-button>
       </template>
     </el-table-column>
   </el-table>
@@ -52,8 +52,23 @@
 </template>
 
 <script>
+import axios from 'axios'
+axios.defaults.withCredentials = true
   export default {
+    created(){
+    this.init()
+    },
     methods: {
+      init(){ 
+          axios({url:'http://8.129.147.77/getproblemlist',//post这里写请求网址
+          method:'get', //然后method改成get
+          headers:{'Content-Type':"application/json;charset=UTF-8"},
+          withCredentials : true
+          }).then(res=>{
+              this.problemList = res.data.data;
+              console.log(this.problemList)
+            })
+    },
       deleteRow(index, rows) {
         rows.splice(index, 1);
       },
@@ -69,56 +84,7 @@
     },
     data() {
       return {
-        tableData: [{
-          date: '10001',
-          name: '题目标题',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1518 弄',
-          problemId: 200331
-        }, {
-          date: '2016-05-02',
-          name: '题目标题',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1518 弄',
-          problemId: 200332
-        }, {
-          date: '2016-05-04',
-          name: '题目标题',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1518 弄',
-          problemId: 200333
-        }, {
-          date: '2016-05-01',
-          name: '题目标题',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1518 弄',
-          problemId: 200335
-        }, {
-          date: '2016-05-08',
-          name: '题目标题',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1518 弄',
-          problemId: 200353
-        }, {
-          date: '2016-05-06',
-          name: '题目标题',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1518 弄',
-          problemId: 200633
-        }, {
-          date: '2016-05-07',
-          name: '题目标题',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1518 弄',
-          problemId: 200393
-        }]
+        problemList: [],
       }
     }
   }
