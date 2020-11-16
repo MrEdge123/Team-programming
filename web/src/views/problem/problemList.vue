@@ -57,12 +57,10 @@ import axios from 'axios'
 import {getProblemListMultiData} from '../../network/problem'
 export default {
   created(){
+    var username = localStorage.getItem('username');
+    var password = localStorage.getItem('password');
     this.init()
-      // getProblemListMultiData().then(res => {
-      //   console.log(res);
-      //     // this.problemList = res.data.data;
-      //     // console.log(this.problemList);
-      // })
+
   },
   data() {
     return {
@@ -95,10 +93,13 @@ export default {
     //           console.log(res)
     //         })
     // },
+    loadComment(){
+        var username = localStorage.getItem('username');
+        console.log(username);
+    },
     init(){
           axios({url:'http://8.129.147.77/getproblemlist',//post这里写请求网址
           method:'get', //然后method改成get
-
           })
             .then(res=>{
               console.log(res)

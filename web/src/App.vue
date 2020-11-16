@@ -8,7 +8,7 @@
       <router-link to="/login">登录</router-link>
       <router-link to="/register">注册</router-link>
     </div>
-    <!-- <navbar></navbar> -->
+    <!-- <navBar></navBar> -->
     <!-- <el-main class="detailed-content"> -->
 	    <router-view />
      <!-- </el-main> -->
@@ -16,12 +16,19 @@
 </template>
 
 <script>
-import navbar from './components/navbar'
+import navBar from './components/navBar'
 
 export default {
   name: 'app',
   components: {
-
+    navBar
+  },
+  method:{
+      loadComment(){
+      var stroage = window.localStorage;
+      var username = stroage["username"];
+      console.log(username);
+    },
   }
 }
 </script>
