@@ -39,7 +39,7 @@ class GetDataListView(View):
                 #将model转化为字典
                 problem_dict = model_to_dict(dataList[i])
                 # print(problem_dict)
-                data.append(problem_dict)
+                data.append(dataList[i])
             ret = {"code": "200", "msg": "成功获取", "data": data}
             return HttpResponse(json.dumps(ret, ensure_ascii=False))
 
@@ -47,18 +47,12 @@ class GetDataListView(View):
         return HttpResponse(json.dumps(ret, ensure_ascii=False))
 
 class showQuestions(View):
-    def get(self, request):
-        # print("------get--------")
-        return render(request, "register.html", {})
     def post(self,request):
         all_que = ProblemsContent.objects.all()
         all_quea = ProblemTestData.objects.all()
         return render(request, 'zhanshi.html', {'all_que': all_que,'all_quea': all_quea,})
 
 class addQuestions(View):
-    def get(self, request):
-        # print("------get--------")
-        return render(request, "register.html", {})
     def post(self,request):
         problemId = request.POST.get('problemId')
         problemTitle = request.POST.get('problemTitle')
@@ -78,9 +72,6 @@ class addQuestions(View):
             return HttpResponse(json.dumps(ret, ensure_ascii=False))
 
 class deleteQuestion(View):
-    def get(self, request):
-        # print("------get--------")
-        return render(request, "register.html", {})
     def post(self,request):
         try:
             problemId= request.POST.get('problemId')
@@ -91,9 +82,6 @@ class deleteQuestion(View):
             ret = {"code": 400, "msg": "删除错误"}
             return HttpResponse(json.dumps(ret, ensure_ascii=False))
 class alterQuestions(View):
-    def get(self, request):
-        # print("------get--------")
-        return render(request, "register.html", {})
     def post(self,request):
         try:
             problemId = request.POST.get('problemId')
@@ -124,9 +112,6 @@ class alterQuestions(View):
 
 
 class showTestData(View):
-    def get(self, request):
-        # print("------get--------")
-        return render(request, "register.html", {})
 
     def post(self, request):
 
@@ -134,9 +119,6 @@ class showTestData(View):
         return render(request, 'zhanshi.html', {'all_quea': all_quea, })
 
 class addTestData(View):
-    def get(self, request):
-        # print("------get--------")
-        return render(request, "register.html", {})
 
     def post(self, request):
         try:
@@ -157,9 +139,6 @@ class addTestData(View):
             ret = {"code": 400, "msg": "添加错误"}
             return HttpResponse(json.dumps(ret, ensure_ascii=False))
 class deleteTestData(View):
-    def get(self, request):
-        # print("------get--------")
-        return render(request, "register.html", {})
 
     def post(self, request):
         problemId = request.POST.get('problemId')
@@ -174,9 +153,6 @@ class deleteTestData(View):
         ret = {"code": 400, "msg": "删除错误"}
         return HttpResponse(json.dumps(ret, ensure_ascii=False))
 class alterTestData(View):
-    def get(self, request):
-        # print("------get--------")
-        return render(request, "register.html", {})
 
     def post(self, request):
         try:

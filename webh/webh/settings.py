@@ -40,18 +40,67 @@ INSTALLED_APPS = [
     'test_verify.apps.App01Config',
     'login.apps.LoginConfig',
     'mainForStu.apps.MainForStuConfig',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware'
+
+
+
 ]
 
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
+
+SESSION_COOKIE_SAMESITE = None
+
+SESSION_COOKIE_HTTPONLY = False
+
+CORS_ORIGIN_WHITELIST = (
+    'http://*',
+    'http://127.0.0.1:8080',
+    'http://localhost:8080',
+    'http://8.129.147.77',
+    'http://8.129.147.77:80',
+    'http://8.129.147.77:8080',
+)
+
+CORS_ALLOW_METHODS = (
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+    'VIEW',
+)
+
+# CORS_ALLOW_HEADERS = (
+#     'XMLHttpRequest',
+#     'X_FILENAME',
+#     'accept-encoding',
+#     'authorization',
+#     'content-type',
+#     'dnt',
+#     'origin',
+#     'user-agent',
+#     'x-csrftoken',
+#     'x-requested-with',
+# )
+CORS_ALLOW_HEADERS = (
+        '*'
+)
 ROOT_URLCONF = 'webh.urls'
 
 TEMPLATES = [
@@ -79,11 +128,11 @@ WSGI_APPLICATION = 'webh.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'websql',
-        'HOST':'127.0.0.1',
+        'NAME': 'webh',
+        'HOST':'8.129.147.77',
         'PORT':3306,
-        'USER':'root',
-        'PASSWORD':'root'
+        'USER':'webh',
+        'PASSWORD':'Sc74eFr6YZRnwrFX'
     }
 }
 
