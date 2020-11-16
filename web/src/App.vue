@@ -15,13 +15,20 @@
 </template>
 
 <script>
-// import navbar from './components/navbar'
+// import navBar from './components/navBar'
 
 export default {
   name: 'app',
   components: {
-
-  }
+    // navBar
+  },
+  // method:{
+  //     loadComment(){
+  //     var stroage = window.localStorage;
+  //     var username = stroage["username"];
+  //     console.log(username);
+  //   },
+  // }
 }
 </script>
 

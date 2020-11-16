@@ -33,6 +33,7 @@ urlpatterns = [
     path('getproblemlist/', mainView.MainView.as_view(), name="getproblemlist"),
     path('modify/', views.ModifyInformation.as_view(), name="modify"),
     path('getDataList/', teacherView.GetDataListView.as_view(), name="getDataList"),
+    path('getDetails/', mainView.DetailsView.as_view(), name="getDetails"),
     path('showQuestions/', teacherView.showQuestions.as_view(), name="showQuestions"),
     path('addDataList/', teacherView.addQuestions.as_view(), name="addQuestions"),
     path('deleteQuestion/', teacherView.deleteQuestion.as_view(), name="deleteQuestion"),

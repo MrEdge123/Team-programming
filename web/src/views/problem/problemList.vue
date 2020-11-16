@@ -58,6 +58,8 @@ axios.defaults.withCredentials = true
 import {getProblemListMultiData} from '../../network/problem'
 export default {
   created(){
+    // var username = localStorage.getItem('username');
+    // var password = localStorage.getItem('password');
     this.init()
   },
   data() {

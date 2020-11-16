@@ -90,7 +90,17 @@ const routes = [
 
 const router = new VueRouter({
     routes
-})
+});
+
+// 挂载路由导航守卫
+// router.beforeEach((to,from,next) => {
+//   if(to.path === '/login')
+//   return next
+//   const username = window.localStorage.getItem('username');
+//   if(!username)
+//   return next('/login')
+//   next
+// })
 
 router.beforeEach((to, from, next) => {
     const lastname = sessionStorage.getItem("Name")

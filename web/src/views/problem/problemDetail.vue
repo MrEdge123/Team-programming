@@ -43,7 +43,7 @@
     type="textarea"
     :autosize="{ minRows: 20, maxRows: 40}"
     placeholder="请输入内容"
-    v-model="textarea">
+    v-model="code">
   </el-input>
   </div>
 </div>
@@ -62,7 +62,7 @@ export default {
 data(){
     return{
        id:'',
-       textarea: '',
+       code: '',
        problemDetail:[],
     }
 },
@@ -70,7 +70,7 @@ data(){
     this.init();
   },
 methods:{
-      init(){
+    init(){
         const id= this.$route.params.problemId
           axios({url:'http://8.129.147.77/getDetails',//post这里写请求网址
           method:'get', //然后method改成get
@@ -82,6 +82,26 @@ methods:{
               console.log(this.problemDetail)
             })
     },
+     submitCode(){
+            const code=this.code
+            axios({url:'http://8.129.147.77/login/',//post这里写请求网址
+            method:'post', //然后method改成get
+            headers:{'Content-Type':'application/x-www-form-urlencoded'},
+            data:Qs.stringify(code)
+              }).then((res) => {
+              console.log(res);
+              if(res.data.code == '200'){
+                // var ses = window.localStorage;
+                // var id = JSON.stringify(data.username);
+                // var pass = JSON.stringify(data.password)
+                // ses.setItem("username",id);
+                // ses.setItem("password",pass);
+                this.$router.push({path:'/problemList',query:{code:200,msg:'登录成功'}});
+              }else{
+                alert('用户名或密码错误。');
+              }
+          })
+     }
 }
 }
 </script>

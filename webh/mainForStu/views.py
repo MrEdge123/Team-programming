@@ -74,15 +74,16 @@ class DetailsView(View):
             pno = request.POST.get("problemId", "")
 
             problem = ProblemsContent.objects.filter(problemId=pno)
-            problem_dict = model_to_dict(problem)
+            problem_dict = model_to_dict(problem[0])
 
             # 如果题目存在例子则获取例子
             examples = ProblemTestData.objects.filter(problemId=pno, isExample=1)
+            examples = examples.values("number","inputData", "outputData","explanation")
             if len(examples) != 0:
-                for j in range(len(examples)):
-                    example_dict = model_to_dict(examples[j])
+               for j in range(len(examples)):
+                    # example_dict = model_to_dict(examples[j])
                     # print(example_dict)
-                    examples_data.append(example_dict)
+                    examples_data.append(examples[j])
                 # 将获取的数据存到相应的题目字典里
                 problem_dict['examples'] = examples_data
 
