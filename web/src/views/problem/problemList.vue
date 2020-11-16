@@ -56,7 +56,7 @@
 import axios from 'axios'
 axios.defaults.withCredentials = true
 import {getProblemListMultiData} from '../../network/problem'
-export default { 
+export default {
   created(){
     this.init()
   },
@@ -88,7 +88,7 @@ export default {
               this.problemList = res.data.data;
               console.log(this.problemList)
             })
-    },    
+    },
     detileTrans(row) {
       if (this.checkedCount) {
         this.$router.push("/problemDetail/" + row.problemId); //跳转页面

@@ -66,8 +66,12 @@ export default {
                      headers:{'Content-Type':'application/x-www-form-urlencoded'},
                      data:Qs.stringify(data)
                         }).then((res) => {
-                      console.log(res) 
-                       this.$router.push('/problemList');
+                        console.log(res)
+                        if(res.data.code == '200'){
+                          this.$router.push('/problemList');
+                        }else{
+                          alert('用户名或密码错误。');
+                        }
                     })
                 }else{
                     alert('err');

@@ -1,4 +1,5 @@
 import json
+import datetime
 
 from django.forms import model_to_dict
 from django.http import HttpResponse
@@ -86,7 +87,7 @@ class DetailsView(View):
                 problem_dict['examples'] = examples_data
 
             ret = {"code": "200", "msg": "用户登录，数据获取成功", "data": problem_dict}
-            return HttpResponse(json.dumps(ret, ensure_ascii=False))
+            return HttpResponse(json.dumps(ret, ensure_ascii=False, cls=DateEncoder))
 
         ret = {"code": "400", "msg": "用户未登录"}
         return HttpResponse(json.dumps(ret, ensure_ascii=False))
@@ -123,7 +124,7 @@ class StateView(View):
                 # print(problem_dict)
                 data.append(stateList[i])
             ret = {"code": "200", "msg": "用户登录，数据获取成功", "data": data}
-            return HttpResponse(json.dumps(ret, ensure_ascii=False))
+            return HttpResponse(json.dumps(ret, ensure_ascii=False, cls=DateEncoder))
 
         ret = {"code": "400", "msg": "用户未登录"}
         return HttpResponse(json.dumps(ret, ensure_ascii=False))
@@ -131,3 +132,14 @@ class StateView(View):
     def post(self, request):
         pass
 
+    
+class DateEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, datetime.datetime):
+            return obj.strftime('%Y-%m-%d %H:%M:%S')
+
+        elif isinstance(obj, datetime.date):
+            return obj.strftime("%Y-%m-%d")
+
+        else:
+            return json.JSONEncoder.default(self, obj)
