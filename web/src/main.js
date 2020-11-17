@@ -11,7 +11,7 @@ import './assets/css/common.css'
 // Vue.prototype.tool = tool;
 Vue.use(ElementUI)
 Vue.config.productionTip = false
-axios.defaults.withCredentials=true;  //跨域访问需要访问发送cookie时
+axios.defaults.withCredentials = true;  //跨域访问需要访问发送cookie时
 Vue.prototype.$axios = axios;
 
 // Vue.prototype.$http = axios;
