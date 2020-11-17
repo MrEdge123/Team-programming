@@ -8,8 +8,6 @@ from test_verify import tests
 from login.models import User
 
 from functools import wraps
-def index_zjw(request):
-    return render(request,'index_zjw.html')
 
 # def login_required(func):
 #     @wraps(func)
@@ -25,9 +23,7 @@ def index_zjw(request):
 #
 # @login_required
 class Mobileauthentication(View):
-    def get(self, request):
-        # print("------get--------")
-        return render(request, "register.html", {})
+
     def post(self,request):
 
         getemail =request.POST.get('user')
@@ -50,9 +46,7 @@ class Mobileauthentication(View):
         return HttpResponse(json.dumps(ret, ensure_ascii=False))
 # @login_required
 class Emailauthentication(View):
-    def get(self, request):
-        # print("------get--------")
-        return render(request, "register.html", {})
+
     def post(self, request):
 
         getemail =request.POST.get('user')

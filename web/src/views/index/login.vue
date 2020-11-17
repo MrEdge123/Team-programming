@@ -62,7 +62,7 @@ export default {
                     let data={//在data里面用键值对的形式写要写的参数
                         username: this.ruleForm.username,
                         password: this.ruleForm.pass,
-                        isAdmin: 0
+                        isAdmin: 1
                      }
                      axios({url:'http://8.129.147.77/login/',//post这里写请求网址
                      method:'post', //然后method改成get
