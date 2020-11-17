@@ -1,34 +1,19 @@
 <template>
 <!-- 学生的题目列表界面，还没有实现搜索功能-->
-<div>
+<el-card class="box-card">
+  <div>
     <div class="search">
-      <el-row :gutter="20">
-        <el-col :span="4"><div class="grid-content bg-purple">
-              <span style="center">题目编号：</span>
-              </div>
+      <el-row :gutter="50">
+        <el-col :span="8">
+          <el-input placeholder="请输入题目编号">
+            <el-button slot="append" icon="el-icon-search"></el-button>
+          </el-input>
         </el-col>
-        <el-col :span="6"><div class="grid-content bg-purple">
-            <el-form>
-              <el-form-item class="petname">
-                <el-input v-model="inputId" placeholder="输入题目编号"></el-input> </el-form-item>
-                </el-form></div>
+        <el-col :span="8">
+          <el-input placeholder="请输入题目标题">
+            <el-button slot="append" icon="el-icon-search"></el-button>
+          </el-input>
         </el-col>
-        <el-col :span="4"><div class="grid-content bg-purple">
-              <span style="center">题目标题：</span>
-              </div>
-        </el-col>
-        <el-col :span="6"
-          ><div class="grid-content bg-purple">
-            <el-form>
-              <el-form-item class="petname">
-                <el-input v-model="inputTitle" placeholder="输入题目标题"></el-input> </el-form-item
-            ></el-form></div
-        ></el-col>
-        <el-col :span="2"><div class="grid-content bg-purple">
-            <el-button type="primary" icon="el-icon-search" @click="addProblem()">搜索</el-button>
-            <!-- <el-button >搜索</el-button> -->
-            <!-- 没有实现搜索的功能-->
-          </div></el-col>
       </el-row>
         </div>
       <div>
@@ -44,12 +29,11 @@
       <el-table-column
         prop="problemTitle"
         label="题目标题">
-
       </el-table-column>
     </el-table>
-
       </div>
-</div>
+  </div>
+</el-card>
 
 </template>
 
@@ -96,35 +80,11 @@ export default {
 </script>
 
 <style>
-.search {
-  margin: 10px 0px;
-  padding:0px 10px;
-  display: flex;
+template{
+  background-color: #ccc;
 }
-.el-row {
-  margin-bottom: 20px;
+.box-card{
+  margin: 30px;
 }
-.el-row > last-child {
-    margin-bottom: 0;
-  }
-.el-col {
-  border-radius: 4px;
-}
-.bg-purple-dark {
-  background: #99a9bf;
-}
-.bg-purple {
-  background: #d3dce6;
-}
-.bg-purple-light {
-  background: #e5e9f2;
-}
-.grid-content {
-  border-radius: 4px;
-  min-height: 36px;
-}
-.row-bg {
-  padding: 10px 0;
-  background-color: #f9fafc;
-}
+
 </style>
