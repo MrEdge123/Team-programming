@@ -1,4 +1,5 @@
 <template>
+<!-- 没有测试过 -->
 <div>
 <div style="margin: 10px 0;"></div>
 <el-row :gutter="20">
@@ -71,41 +72,67 @@
       </div></el-col>
 </el-row>
 <el-row>
-    <el-col :span="6"  ><el-button type="text"  @click="addPro()">修改题目</el-button></el-col>
+    <el-col :span="6"  ><el-button  @click="editPro()">修改题目</el-button></el-col>
     <el-col :span="6"><el-button  @click="addCancle()" >取消</el-button></el-col>
 </el-row>
 </div>
 </template>
 
 <script>
+import axios from 'axios'
+import Qs from 'qs'
 export default {
 data(){
     return{
         id: this.$route.params.problemId,
-        proTitle:'',
-        imTime:'',
-        imRoom:'',
-        dePro:'',
-        dein:'',
-        deout:'',
+        proTitle:'',//题目
+        imTime:'',//时间限制
+        imRoom:'',//空间限制
+        dePro:'',//问题描述
+        dein:'',//输入描述
+        deout:'',//输出描述
     }
 },
-methods:{
-    addPro(){
+methods:{//先请求原本是题目描述然后再把他显示在上面
+    editPro(){
         this.$confirm('请确保修改, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning',
           center: true
         }).then(() => {
+          //post请求数据
+            //在data里面用键值对的形式写要写的参数
+          let data={//在data里面用键值对的形式写要写的参数
+          problemTitle:this.proTitle,
+          memoryLimit:this.imRoom,
+          timeLimit:this.imtime,
+          problemDescription:this.dePro,
+          inputDescription:this.dein,
+          outputDescription:this.deout,
+        }
+          axios({url:'http://8.129.147.77/alterQuestions/',//post这里写请求网址
+          method:'post', //然后method改成get
+        //  headers:{'Content-Type':"application/json;charset=UTF-8"},
+          headers:{'Content-Type':'application/x-www-form-urlencoded'},
+          data:Qs.stringify(data)
+            }).then((res) => {
+            console.log(res)
+          if(res.data.code == '200'){
           this.$message({
             type: 'success',
             message: '修改成功!'
+          });}else {
+            this.$message({
+            type: 'info',
+            message: '修改失败。'
           });
+          }
+        })
         }).catch(() => {
           this.$message({
             type: 'info',
-            message: '已取消'
+            message: '出错。'
           });
         });
       },

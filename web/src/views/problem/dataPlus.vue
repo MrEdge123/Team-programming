@@ -1,4 +1,5 @@
 <template>
+<!-- 数据添加，我觉得既然不显示，直接把数据编辑去掉 -->
 <div>
 <div style="margin: 10px 0;" class="container"></div>
 <el-row ><el-col :span="10" ><div><h3>输入数据：</h3></div></el-col>  
@@ -31,6 +32,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+import Qs from 'qs'
 export default {
 data(){
     return{
@@ -46,7 +49,7 @@ methods:{
           cancelButtonText: '取消',
           type: 'warning',
           center: true
-        }).then(() => {
+        }).then(() => {//加post请求
           this.$message({
             type: 'success',
             message: '添加成功!'
