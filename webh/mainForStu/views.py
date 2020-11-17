@@ -71,9 +71,14 @@ class DetailsView(View):
             ret = {"code": "200", "msg": "用户登录"}
 
             examples_data = []
-            pno = request.POST.get("problemId", "")
+            pno = request.GET.get("problemId", "")
 
             problem = ProblemsContent.objects.filter(problemId=pno)
+            
+             if len(problem) == 0:
+                ret = {"code": "400", "msg": "problemId错误"}
+                return HttpResponse(json.dumps(ret, ensure_ascii=False))
+            
             problem_dict = model_to_dict(problem[0])
 
             # 如果题目存在例子则获取例子
