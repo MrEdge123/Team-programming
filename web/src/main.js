@@ -4,16 +4,16 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import router from './router'
 import axios from 'axios'
-import tool from './assets/js/tool'
+// import tool from './assets/js/tool'
 
 
-Vue.prototype.tool = tool;
+// Vue.prototype.tool = tool;
 Vue.use(ElementUI)
 Vue.config.productionTip = false
 axios.defaults.withCredentials=true;
 Vue.prototype.$axios = axios;
 // Vue.http.options.emulateJSON = true;
-// Vue.http.options.xhr = { withCredentials: true}; 
+// Vue.http.options.xhr = { withCredentials: true};
 
 
 new Vue({

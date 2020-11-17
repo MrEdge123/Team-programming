@@ -54,12 +54,12 @@
 
 <script>
 import axios from 'axios'
-axios.defaults.withCredentials = true
+// axios.defaults.withCredentials = true
 import {getProblemListMultiData} from '../../network/problem'
 export default {
   created(){
-    var username = localStorage.getItem('username');
-    var password = localStorage.getItem('password');
+    // var username = localStorage.getItem('username');
+    // var password = localStorage.getItem('password');
     this.init()
   },
   data() {
@@ -82,13 +82,13 @@ export default {
   filters: {},
   methods: {
     init(){
-          axios({url:'http://8.129.147.77/getproblemlist',//post这里写请求网址
+          axios({url:'http://8.129.147.77/getproblemlist/',//post这里写请求网址
           method:'get', //然后method改成get
           headers:{'Content-Type':"application/json;charset=UTF-8"},
           withCredentials : true
           }).then(res=>{
               this.problemList = res.data.data;
-              console.log(this.problemList)
+              console.log(res);
             })
     },
     detileTrans(row) {

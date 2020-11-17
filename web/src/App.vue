@@ -1,14 +1,14 @@
 <template>
   <div id="#app" class="container">
-    <div class="link-list">
+    <!-- <div class="link-list">
       <router-link to="/home">主页</router-link>
       <router-link to="/problemList">题目列表</router-link>
       <router-link to="/situation">状态</router-link>
       <router-link to="/help">帮助</router-link>
       <router-link to="/login">登录</router-link>
       <router-link to="/register">注册</router-link>
-    </div>
-    <!-- <navBar></navBar> -->
+    </div> -->
+    <navBar></navBar>
     <!-- <el-main class="detailed-content"> -->
 	    <router-view />
      <!-- </el-main> -->
@@ -24,17 +24,12 @@ export default {
     navBar
   },
   method:{
-      loadComment(){
-      var stroage = window.localStorage;
-      var username = stroage["username"];
-      console.log(username);
-    },
   }
 }
 </script>
 
 <style>
-*{
+/* *{
   padding: 0;
   margin: 0;
 }
@@ -51,5 +46,5 @@ export default {
   color: white;
   text-decoration: none;
   font-size: 20px;
-}
+} */
 </style>

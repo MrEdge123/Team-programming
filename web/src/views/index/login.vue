@@ -62,6 +62,7 @@ export default {
                     let data={//在data里面用键值对的形式写要写的参数
                         username: this.ruleForm.username,
                         password: this.ruleForm.pass,
+                        isAdmin: 0
                      }
                      axios({url:'http://8.129.147.77/login/',//post这里写请求网址
                      method:'post', //然后method改成get
@@ -71,12 +72,12 @@ export default {
                         }).then((res) => {
                         console.log(res);
                         if(res.data.code == '200'){
-                          var ses = window.localStorage;
-                          var id = JSON.stringify(data.username);
-                          var pass = JSON.stringify(data.password)
-                          ses.setItem("username",id);
-                          ses.setItem("password",pass);
-                          this.$router.push({path:'/problemList',query:{code:200,msg:'登录成功'}});
+                          // var ses = window.localStorage;
+                          // var id = JSON.stringify(data.username);
+                          // var pass = JSON.stringify(data.password)
+                          // ses.setItem("username",id);
+                          // ses.setItem("password",pass);
+                          this.$router.push('/problemList');
                         }else{
                           alert('用户名或密码错误。');
                         }
