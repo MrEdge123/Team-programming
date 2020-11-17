@@ -1,4 +1,5 @@
 <template>
+<!-- 老师的题目列表界面 删除题目已测试，页面跳转传参数ok-->
 <div>
   <br>
   <el-row  type="flex" justify="end">
@@ -53,6 +54,7 @@
 
 <script>
 import axios from 'axios'
+import Qs from 'qs'
 axios.defaults.withCredentials = true
   export default {
     created(){
@@ -69,9 +71,40 @@ axios.defaults.withCredentials = true
               console.log(this.problemList)
             })
     },
-      deleteRow(index, rows) {
-        rows.splice(index, 1);
-      },
+deleteRow(index, rows) {
+        this.$confirm('请确保添加, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning',
+          center: true
+        }).then(() => {
+        let data={//在data里面用键值对的形式写要写的参数
+        problemId: rows[index].problemId
+                }
+          axios({url:'http://8.129.147.77/deleteQuestion/',//post这里写请求网址
+          method:'post', //然后method改成get
+        //  headers:{'Content-Type':"application/json;charset=UTF-8"},
+          headers:{'Content-Type':'application/x-www-form-urlencoded'},
+          data:Qs.stringify(data)
+            }).then((res) => {
+            console.log(res)
+            if(res.data.code == '200'){
+              rows.splice(index, 1);
+              this.$message({
+              type: 'success',
+              message: '添加成功!'
+            });
+            }else{
+              alert('出现错误。');
+            }
+        })
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消'
+          });
+        });
+     },
       editProblem(index,rows){
       this.$router.push("/problemEdit/" + rows[index].problemId); //跳转页面
       },

@@ -1,4 +1,5 @@
 <template>
+<!-- 具体题目题目展示，还没有拿到数据，这些具体描述还得重新读取 -->
 <div>
 <el-row type="flex" class="row-bg">
   <el-col :span="20" ><div class="grid-content bg-purple-light">
@@ -37,6 +38,21 @@
 <el-row>
   <el-col :span="3" ><div class="grid-content bg-purple-light"><h3>输入代码</h3></div></el-col>
 </el-row>
+<el-row>
+  <el-col :span="3"><div class="grid-content bg-purple-light">
+    <div class="sub-title"><h3>选择语言</h3></div></div>
+    </el-col>
+    <el-col :span="6">
+    <el-autocomplete
+      class="inline-input"
+      v-model="language"
+      :fetch-suggestions="querySearch"
+      placeholder="请输入内容"
+      @select="handleSelect"
+    ></el-autocomplete>
+
+  </el-col>
+</el-row>
   <div>
     <div></div>
     <el-input
@@ -64,10 +80,13 @@ data(){
        id:'',
        code: '',
        problemDetail:[],
+       restaurants: [],
+      language: '',
     }
 },
   mounted() {
     this.init();
+    this.restaurants = this.loadAll();
   },
 methods:{
     init(){
@@ -83,26 +102,50 @@ methods:{
             })
     },
      submitCode(){
-            const code=this.code
-            axios({url:'http://8.129.147.77/login/',//post这里写请求网址
+            let data ={
+              userName:'admin',
+              problemId:this.problemId,
+              code:this.code,
+              language:this.language,
+              }
+            axios({url:'http://8.129.147.77/submitCode/ ',//post这里写请求网址
             method:'post', //然后method改成get
             headers:{'Content-Type':'application/x-www-form-urlencoded'},
-            data:Qs.stringify(code)
+            data:Qs.stringify(data)
               }).then((res) => {
               console.log(res);
               if(res.data.code == '200'){
-                // var ses = window.localStorage;
-                // var id = JSON.stringify(data.username);
-                // var pass = JSON.stringify(data.password)
-                // ses.setItem("username",id);
-                // ses.setItem("password",pass);
-                this.$router.push({path:'/problemList',query:{code:200,msg:'登录成功'}});
+                this.$router.push('/problemList');
               }else{
                 alert('用户名或密码错误。');
               }
           })
-     }
-}
+     },
+     querySearch(queryString, cb) {
+        var restaurants = this.restaurants;
+        var results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants;
+        // 调用 callback 返回建议列表的数据
+        cb(results);
+      },
+      createFilter(queryString) {
+        return (restaurant) => {
+          return (restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+        };
+      },
+      loadAll() {
+        return [
+          { "value": "Python", "address": "0" },
+          { "value": "C", "address": "2" },
+          { "value": "Java", "address": "1" },
+          { "value": "C++", "address": "3" }
+        ];
+      },
+       handleSelect(item) {
+         console.log(this.language);
+        console.log(item);
+      }
+    },
+  
 }
 </script>
 
