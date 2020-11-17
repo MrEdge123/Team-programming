@@ -72,12 +72,12 @@ export default {
                         }).then((res) => {
                         console.log(res);
                         if(res.data.code == '200'){
-                          var ses = window.localStorage;
-                          var id = JSON.stringify(data.username);
-                          var pass = JSON.stringify(data.password)
-                          ses.setItem("username",id);
-                          ses.setItem("password",pass);
-                          this.$router.push({path:'/problemList',query:{code:200,msg:'登录成功'}});
+                          // var ses = window.localStorage;
+                          // var id = JSON.stringify(data.username);
+                          // var pass = JSON.stringify(data.password)
+                          // ses.setItem("username",id);
+                          // ses.setItem("password",pass);
+                          this.$router.push('/problemList');
                         }else{
                           alert('用户名或密码错误。');
                         }

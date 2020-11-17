@@ -13,7 +13,7 @@ Vue.config.productionTip = false
 axios.defaults.withCredentials=true;
 Vue.prototype.$axios = axios;
 // Vue.http.options.emulateJSON = true;
-// Vue.http.options.xhr = { withCredentials: true}; 
+// Vue.http.options.xhr = { withCredentials: true};
 
 
 new Vue({
