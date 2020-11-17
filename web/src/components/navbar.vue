@@ -5,8 +5,8 @@
       mode="horizontal"
       @select="handleSelect"
       router
-      background-color="#fff"
-      text-color="#333"
+      background-color="slateblue"
+      text-color="#fff"
       active-text-color="#0084ff"
       >
       <el-menu-item v-for="(item,i) in navList" :key="i" :index="item.name">
@@ -37,7 +37,7 @@ export default {
   },
   methods: {
      handleSelect(key, keyPath) {
-        console.log(key, keyPath);
+        // console.log(key, keyPath);
      }
   },
 
@@ -45,5 +45,10 @@ export default {
 </script>
 
 <style>
+.el-menu-demo{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
 
 </style>

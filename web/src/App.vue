@@ -16,12 +16,12 @@
 </template>
 
 <script>
-// import navBar from './components/navBar'
+import navBar from './components/navBar'
 
 export default {
   name: 'app',
   components: {
-    // navBar
+    navBar
   },
   method:{
   }
@@ -29,22 +29,6 @@ export default {
 </script>
 
 <style>
-/* *{
-  padding: 0;
-  margin: 0;
-}
 
-.link-list{
-  height: 40px;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  background-color: slateblue;
-}
 
-.link-list a{
-  color: white;
-  text-decoration: none;
-  font-size: 20px;
-} */
 </style>
