@@ -14,8 +14,6 @@ Vue.config.productionTip = false
 axios.defaults.withCredentials = true;  //跨域访问需要访问发送cookie时
 Vue.prototype.$axios = axios;
 
-// Vue.prototype.$http = axios;
-// axios.defaults.baseURL = "http://8.129.147.77:80"
 
 // Vue.http.options.emulateJSON = true;
 // Vue.http.options.xhr = { withCredentials: true};

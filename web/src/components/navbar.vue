@@ -28,6 +28,7 @@ export default {
              {name:'help',navItem:'帮助'},
              {name:'login',navItem:'登录'},
              {name:'register',navItem:'注册'},
+             {name:'problemPlus',navItem: '新建题目'}
         ]
 
     }

@@ -85,20 +85,22 @@ data(){
     }
 },
   mounted() {
-    this.init();
+    this.problemId = this.$router.params.problemId;
+    console.log(this.problemId);
+    this.init(this.problemId);
     this.restaurants = this.loadAll();
   },
 methods:{
-    init(){
-        const id= this.$route.params.problemId
-          axios({url:'http://8.129.147.77/getDetails',//post这里写请求网址
+    init(id){
+          // let id = this.$route.params.problemId;
+          axios({url:'http://8.129.147.77/getDetails?id='+this.problemId,//post这里写请求网址
           method:'get', //然后method改成get
           headers:{'Content-Type':"application/json;charset=UTF-8"},
-          params:{id},
+          // params:{id},
           withCredentials : true
           }).then(res=>{
               this.problemDetail = res.data.data;
-              console.log(this.problemDetail)
+              console.log(res);
             })
     },
      submitCode(){
@@ -145,7 +147,7 @@ methods:{
         console.log(item);
       }
     },
-  
+
 }
 </script>
 
