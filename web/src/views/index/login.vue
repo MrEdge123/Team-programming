@@ -16,11 +16,11 @@
 </template>
 
 <script>
-import {getLoginMultidata} from '../../network/user'
 import axios from 'axios'
 import Qs from 'qs'
 
 export default {
+  name:'login',
   data(){
     var checkname = (rule, value, callback) => {
       if(!value){
@@ -77,7 +77,7 @@ export default {
                           var pass = JSON.stringify(data.password)
                           ses.setItem("username",id);
                           ses.setItem("password",pass);
-                          this.$router.push('/problemList');
+                          this.$router.push('/home');
                         }else{
                           this.$message.error('用户名或密码错误。');
                         }
@@ -87,10 +87,7 @@ export default {
                     return false;
                 }
             });
-        },
-      loadComment(){
-
-    },
+        }
   },
 
 }

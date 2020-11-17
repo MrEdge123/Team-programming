@@ -16,10 +16,7 @@
       </el-menu-item>
   </el-menu>
 </template>
-
 <script>
-
-
 export default {
   name: 'navbar',
    data() {
@@ -43,12 +40,10 @@ export default {
 
 }
 </script>
-
 <style>
 .el-menu-demo{
   display: flex;
   justify-content: space-around;
   align-items: center;
 }
-
 </style>
