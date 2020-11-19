@@ -67,10 +67,41 @@ import Qs from 'qs'
               }
           })
     }, 
-      deleteRow(index, rows) {
-        rows.splice(index, 1);
-        //返回post请求
-      },
+deleteRow(index, rows) {
+        this.$confirm('请确保添加, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning',
+          center: true
+        }).then(() => {
+        let data={//在data里面用键值对的形式写要写的参数
+        problemId: rows[index].problemId,
+        isExample:rows[index].isExample
+                }
+          axios({url:'http://8.129.147.77/deleteTestData/',//post这里写请求网址
+          method:'post', //然后method改成get
+        //  headers:{'Content-Type':"application/json;charset=UTF-8"},
+          headers:{'Content-Type':'application/x-www-form-urlencoded'},
+          data:Qs.stringify(data)
+            }).then((res) => {
+            console.log(res)
+            if(res.data.code == '200'){
+              rows.splice(index, 1);
+              this.$message({
+              type: 'success',
+              message: '添加成功!'
+            });
+            }else{
+              alert('出现错误。');
+            }
+        })
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消'
+          });
+        });
+     },
       editData(index,rows){
         this.$router.push("/dataPlus/" + rows[index].problemId); //跳转页面
       },

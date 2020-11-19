@@ -121,7 +121,9 @@ methods:{//先请求原本是题目描述然后再把他显示在上面
           this.$message({
             type: 'success',
             message: '修改成功!'
-          });}else {
+          });
+          this.$router.push('/problemAdd');
+          }else {
             this.$message({
             type: 'info',
             message: '修改失败。'

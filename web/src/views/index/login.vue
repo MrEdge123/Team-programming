@@ -8,6 +8,10 @@
         <el-form-item label="密码" prop="pass" id="password">
           <el-input v-model="ruleForm.pass" type="password"></el-input>
         </el-form-item>
+        <el-form-item>
+        <!-- `checked` 为 true 或 false -->
+        <el-checkbox v-model="checked">老师/管理员</el-checkbox>
+        </el-form-item>
         <el-button @click="submitForm('ruleForm')">登录</el-button>
         <el-button>忘记密码</el-button>
       </el-form>
@@ -37,9 +41,10 @@ export default {
       }
     }
     return{
+      checked: false,
       ruleForm: {
         username: '',
-        pass: ''
+        pass: '',
       },
       rules: {
         username: [
@@ -58,11 +63,13 @@ export default {
         submitForm(formname){
             this.$refs[formname].validate((valid) => {
                 if(valid){
-                    console.log(this.ruleForm);
+                  var isadmin=0
+                  if(this.checked){isadmin=1}
+                    // console.log(isadmin);
                     let data={//在data里面用键值对的形式写要写的参数
                         username: this.ruleForm.username,
                         password: this.ruleForm.pass,
-                        isAdmin: 0
+                        isAdmin: isadmin
                      }
                      axios({url:'http://8.129.147.77/login/',//post这里写请求网址
                      method:'post', //然后method改成get
@@ -77,7 +84,8 @@ export default {
                           var pass = JSON.stringify(data.password)
                           ses.setItem("username",id);
                           ses.setItem("password",pass);
-                          this.$router.push('/home');
+                          if(!isadmin){this.$router.push('/home');}
+                          else{this.$router.push('/problemAdd');}
                         }else{
                           this.$message.error('用户名或密码错误。');
                         }

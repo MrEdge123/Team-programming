@@ -1,10 +1,10 @@
 <template>
-<!-- 具体题目题目展示，还没有拿到数据，这些具体描述还得重新读取 -->
+<!-- -->
 <div>
 <el-row type="flex" class="row-bg">
   <el-col :span="20" ><div class="grid-content bg-purple-light">
-      <h1>{{id}}：题目标题</h1>
-      <h5> 时间限制: 1 秒 <span></span>空间限制: 512 MB</h5>
+      <h1>{{id}}：{{problemDetail.problemTitle}}</h1>
+      <h5> 时间限制: {{problemDetail.timeLimit}} 秒 <span></span>空间限制: {{problemDetail.memoryLimit}} MB</h5>
       </div></el-col>
 </el-row>
 <div style="margin: 60px 0;"></div>
@@ -12,26 +12,44 @@
 <div><h3>题目描述：</h3></div>
 <el-row type="flex" class="row-bg">
   <el-col :span="20" :offset="1"><div class="grid-content bg-purple-light">
-       <h4>这道题目非常简单！<br>你只需要计算a+b就可以了！！！</h4>
+       <h4>{{problemDetail.problemDescription}}</h4>
       </div></el-col>
 </el-row>
 <div><h3>输入描述：</h3></div>
 <el-row type="flex" class="row-bg">
   <el-col :span="20" :offset="1"><div class="grid-content bg-purple-light">
-     <h4>输入两个整数a,b 1 = a = 100, 1 = b = 100</h4>
+     <h4>{{problemDetail.inputDescription}}</h4>
       </div></el-col>
 </el-row>
 <div><h3>输出描述：</h3></div>
 <el-row type="flex" class="row-bg">
   <el-col :span="20" :offset="1"><div class="grid-content bg-purple-light">
-      <h4>输出一行：输出a+b的值</h4>
+      <h4>{{problemDetail.outputDescription}}</h4>
       </div></el-col>
 </el-row>
 <div><h3>例子描述：</h3></div>
 <el-row type="flex" class="row-bg">
-  <el-col :span="20" :offset="1"><div class="grid-content bg-purple-light">
-      <h4>输入</h4><h4>输出</h4><h4>说明</h4>
-      </div></el-col>
+ <el-table
+    ref="filterTable"
+    :data="problemDetail.examples"
+    style="width: 100%">
+    <el-table-column
+      prop="explanation"
+      label="例子"
+      width="180">
+    </el-table-column>
+    <el-table-column
+      prop="inputData"
+      label="输入数据"
+      width="180">
+    </el-table-column>
+    <el-table-column
+      prop="outputData"
+      label="输出结果"
+      width="180">
+    </el-table-column>
+
+  </el-table>
 </el-row>
 <div style="margin: 60px 0;"></div>
 <div>
@@ -63,7 +81,7 @@
   </el-input>
   </div>
 </div>
-<el-button >提交代码</el-button>
+<el-button @click="submitCode()" >提交代码</el-button>
 </div>
 
 </template>
@@ -73,11 +91,11 @@ import axios from 'axios'
 import Qs from 'qs'
 export default {
   created(){
-  //  init(this.$route.params.problemId)
+   this.init(this.$route.params.problemId)
   },
 data(){
     return{
-       id:'',
+       id:this.$route.params.problemId,
        code: '',
        problemDetail:[],
        restaurants: [],
@@ -85,18 +103,18 @@ data(){
     }
 },
   mounted() {
-    this.problemId = this.$router.params.problemId;
-    console.log(this.problemId);
-    this.init(this.problemId);
+    //  this.id = this.$router.params.problemId;
+    // this.init(this.id);
     this.restaurants = this.loadAll();
   },
 methods:{
     init(id){
-          // let id = this.$route.params.problemId;
-          axios({url:'http://8.129.147.77/getDetails?id='+this.problemId,//post这里写请求网址
+          // this.id = this.$route.params.problemId;
+          console.log(id)
+          axios({url:'http://8.129.147.77/getDetails/',//post这里写请求网址
           method:'get', //然后method改成get
           headers:{'Content-Type':"application/json;charset=UTF-8"},
-          // params:{id},
+          params:{problemId:id},
           withCredentials : true
           }).then(res=>{
               this.problemDetail = res.data.data;
@@ -104,23 +122,25 @@ methods:{
             })
     },
      submitCode(){
-            let data ={
-              userName:'admin',
-              problemId:this.problemId,
-              code:this.code,
-              language:this.language,
-              }
-            axios({url:'http://8.129.147.77/submitCode/ ',//post这里写请求网址
-            method:'post', //然后method改成get
-            headers:{'Content-Type':'application/x-www-form-urlencoded'},
-            data:Qs.stringify(data)
-              }).then((res) => {
-              console.log(res);
-              if(res.data.code == '200'){
-                this.$router.push('/problemList');
-              }else{
-                alert('用户名或密码错误。');
-              }
+          var  storage = window.localStorage;
+          var username = storage.getItem('username');
+          let data ={
+            userName:username,
+            problemId:this.problemId,
+            code:this.code,
+            language:this.language,
+            }
+          axios({url:'http://8.129.147.77/submitCode/ ',//post这里写请求网址
+          method:'post', //然后method改成get
+          headers:{'Content-Type':'application/x-www-form-urlencoded'},
+          data:Qs.stringify(data)
+            }).then((res) => {
+            console.log(res);
+            if(res.data.code == '200'){
+              this.$router.push('/situation');//跳转到状态
+            }else{
+              alert('用户名或密码错误。');
+            }
           })
      },
      querySearch(queryString, cb) {
