@@ -65,8 +65,12 @@
 import axios from 'axios'
 import Qs from 'qs'
 export default {
-    data() {
+  created(){
+    this.init()
+  },
+  data() {
       return {
+        statue:[],
         tableData: [{
           date: '2016-05-02',
           name: '王小虎',
@@ -91,6 +95,16 @@ export default {
       }
     },
     methods: {
+      init(){
+          axios({url:'http://8.129.147.77/getState/',//post这里写请求网址
+          method:'get', //然后method改成get
+          headers:{'Content-Type':"application/json;charset=UTF-8"},
+          withCredentials : true
+          }).then((res)=>{
+              this.statue = res.data.data;
+              console.log(res.data.data);
+            })
+      },
       resetDateFilter() {
         this.$refs.filterTable.clearFilter('date');
       },

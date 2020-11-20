@@ -54,7 +54,7 @@ const routes = [
         component:dataEdit
     },
     {
-        path: '/dataPlus/:problemId',
+        path: '/dataPlus/:problemId/:number',//
         component:dataPlus
     },
     {

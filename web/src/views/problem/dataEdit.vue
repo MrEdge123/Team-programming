@@ -55,36 +55,39 @@ import Qs from 'qs'
         let data ={
           problemId:this.$route.params.problemId
           }
-          console.log(this.$route.params.problemId)
+          // console.log(this.$route.params.problemId)
             axios({url:'http://8.129.147.77/showTestData/ ',//数据请求有问题
             method:'post', //然后method改成get
             headers:{'Content-Type':'application/x-www-form-urlencoded'},
-            data:JSON.stringify(data),
+            data:Qs.stringify(data),
               }).then((res) => {
-              console.log(res);
               if(res.data.code == '200'){
-                console.log('成功')
+                this.dataList=res.data.data
+                // console.log('成功')
+                console.log(this.dataList)
               }
           })
     }, 
 deleteRow(index, rows) {
-        this.$confirm('请确保添加, 是否继续?', '提示', {
+        this.$confirm('请确保删除, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning',
           center: true
         }).then(() => {
         let data={//在data里面用键值对的形式写要写的参数
-        problemId: rows[index].number,//数据的号码
+        problemId:this.id,
+        number: rows[index].number,//数据的号码
         isExample:rows[index].isExample
                 }
-          axios({url:'http://8.129.147.77/deleteTestData/',//还没有测试过
+        console.log(data)
+          axios({url:'http://8.129.147.77/deleteTestData/',// 好像没有界面
           method:'post', //然后method改成get
-         headers:{'Content-Type':"application/json;charset=UTF-8"},
-          // headers:{'Content-Type':'application/x-www-form-urlencoded'},
+        //  headers:{'Content-Type':"application/json;charset=UTF-8"},
+          headers:{'Content-Type':'application/x-www-form-urlencoded'},
           data:JSON.stringify(data)
             }).then((res) => {
-            console.log(res)
+            // console.log(res)
             if(res.data.code == '200'){
               rows.splice(index, 1);
               this.$message({
@@ -103,19 +106,16 @@ deleteRow(index, rows) {
         });
      },
       editData(index,rows){
-        this.$router.push("/dataPlus/" + rows[index].problemId); //跳转页面
+        this.$router.push("/dataPlus/"+this.id+"/"+rows[index].number); //跳转页面如果传入题目序号
       },
       plusData(){
-        this.$router.push("/dataPlus/"+ 'new'); //跳转页面如果传入000表示新添加
-        // this.$router.push("/dataPlus/");
+        this.$router.push("/dataPlus/"+this.id+"/new"); //跳转页面如果传入题目序号
       }
     },
     data() {
       return {
-        dataList: [{number: 1,
-                    isExample:'是'},
-                    {number: 2,
-                    isExample:'是'}]
+        id:this.$route.params.problemId,
+        dataList: []
       }
     }
   }

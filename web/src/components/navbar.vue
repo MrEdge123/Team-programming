@@ -69,7 +69,7 @@ export default {
      navAdmin(){
         var  storage = window.localStorage;
         var isAdmin= storage.getItem('isAdmin');
-        console.log(isAdmin)
+        // console.log(isAdmin)
         if(isAdmin==='1')
         {this.navList=[
              {name:'home', navItem:'主页'},

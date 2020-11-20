@@ -40,7 +40,7 @@
             </el-input>
             </div></el-col>
         </el-form-item>
-        <el-button  @click="addPro()">添加</el-button>
+        <el-button  @click="check()">添加</el-button>
         <el-button  @click="addCancle()" >取消</el-button>
       </el-form>
     </div>
@@ -52,6 +52,7 @@ import Qs from 'qs'
 export default {
 data(){
     return{
+        number: this.$route.params.number,
         id: this.$route.params.problemId,
         inputData:'',
         outputData:'',
@@ -62,14 +63,17 @@ data(){
 },
 methods:{
   inputToDisabled(){//是否添加例子说明
+  // console.log(this.$route.params.problemId)
+  // console.log(this.$route.params.number)
         if(this.isExample){
           this.disabled=false;}
           else{
           this.disabled=true;
         }
       },
-    addPro(){
+    addData(){//通过判断number号选择修改还是添加
       if(!this.isExample){this.explanation=null}
+      if(this.isExample){this.isExample=1}else{this.isExample=0}
       // console.log(this.explanation)
         this.$confirm('请确保添加, 是否继续?', '提示', {
           confirmButtonText: '确定',
@@ -78,7 +82,7 @@ methods:{
           center: true
         }).then(() => {//加post请求
       let data={//在data里面用键值对的形式写要写的参数
-        // problemId:this.id,
+        problemId:this.id,
         number:this.number,
         inputData:this.inputData,
         outputData:this.outputData,
@@ -87,13 +91,11 @@ methods:{
                 }
           axios({url:'http://8.129.147.77/addTestData/',//post这里写请求网址
           method:'post', //然后method改成get
-        //  headers:{'Content-Type':"application/json;charset=UTF-8"},
           headers:{'Content-Type':'application/x-www-form-urlencoded'},
           data:Qs.stringify(data)
             }).then((res) => {
             console.log(res)
             if(res.data.code == '200'){
-              rows.splice(index, 1);
               this.$message({
               type: 'success',
               message: '添加成功!'
@@ -108,6 +110,57 @@ methods:{
             message: '已取消'
           });
         });
+     },
+      alertData(){//通过判断number号选择修改还是添加
+      if(!this.isExample){this.explanation=null}
+      if(this.isExample){this.isExample=1}else{this.isExample=0}
+      // console.log(this.explanation)
+        this.$confirm('请确保修改, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning',
+          center: true
+        }).then(() => {//加post请求
+      let data={//在data里面用键值对的形式写要写的参数
+        problemId:this.id,
+        number:this.number,
+        inputData:this.inputData,
+        outputData:this.outputData,
+        isExample:this.isExample,
+        explanation:this.explanation,
+                }
+          axios({url:'http://8.129.147.77/alterTestData/',//post这里写请求网址
+          method:'post', //然后method改成get
+        //  headers:{'Content-Type':"application/json;charset=UTF-8"},
+          headers:{'Content-Type':'application/x-www-form-urlencoded'},
+          data:Qs.stringify(data)
+            }).then((res) => {
+            console.log(res)
+            if(res.data.code == '200'){
+              this.$message({
+              type: 'success',
+              message: '修改成功!'
+            });
+            }else{
+              alert('出现错误');
+            }
+        })
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消'
+          });
+        });
+     },
+     check(){//判断是编辑数据还是添加数据
+     console.log(this.number)
+       if(this.number==="new"){
+        //  this.addCancle();
+         this.addData();
+         }
+       else{
+         this.alertData();
+       }
      },
       addCancle(){
           this.$router.go(-1);

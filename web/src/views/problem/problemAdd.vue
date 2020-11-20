@@ -68,7 +68,7 @@ axios.defaults.withCredentials = true
           withCredentials : true
           }).then(res=>{
               this.problemList = res.data.data;
-              console.log(this.problemList)
+              // console.log(this.problemList)
             })
     },
 deleteRow(index, rows) {
