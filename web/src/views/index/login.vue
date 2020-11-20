@@ -10,7 +10,7 @@
         </el-form-item>
         <el-form-item>
         <!-- `checked` 为 true 或 false -->
-        <el-checkbox v-model="checked">老师/管理员</el-checkbox>
+        <el-checkbox v-model="checked">老师 / 管理员</el-checkbox>
         </el-form-item>
         <el-button @click="submitForm('ruleForm')">登录</el-button>
         <el-button>忘记密码</el-button>
@@ -87,7 +87,7 @@ export default {
                           var isadmin = JSON.stringify(data.isAdmin)
                           ses.setItem("username",id);
                           ses.setItem("password",pass);
-                          ses.setItem("isAdmin",isadmin); 
+                          ses.setItem("isAdmin",isadmin);
                         }else{
                           this.$message.error('用户名或密码错误。');
                         }

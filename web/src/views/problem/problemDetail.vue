@@ -1,89 +1,73 @@
 <template>
-<!-- -->
-<div>
-<el-row type="flex" class="row-bg">
-  <el-col :span="20" ><div class="grid-content bg-purple-light">
-      <h1>{{id}}：{{problemDetail.problemTitle}}</h1>
-      <h5> 时间限制: {{problemDetail.timeLimit}} 秒 <span></span>空间限制: {{problemDetail.memoryLimit}} MB</h5>
-      </div></el-col>
-</el-row>
-<div style="margin: 60px 0;"></div>
+<!-- 具体题目描述 -->
+  <div class="container">
+      <!-- 标题 -->
+    <el-row class="row-title">
+      <el-row><h1>{{id}}. {{problemDetail.problemTitle}}</h1></el-row>
+      <el-row type="flex">
+        <el-col><span>时间限制：</span>{{problemDetail.timeLimit}} 秒</el-col>
+        <el-col><span>空间限制：</span>{{problemDetail.memoryLimit}} MB</el-col>
+      </el-row>
+    </el-row>
+        <!-- 内容 -->
+    <el-row class="detail-content" type="flex">
+        <!-- 题目描述 -->
+      <el-col class="left-content">
+        <el-row>
+          <h3>题目描述</h3>
+          <el-card>{{problemDetail.problemDescription}}</el-card>
+        </el-row>
+        <el-row>
+          <h4>输入描述</h4>
+          <el-card>{{problemDetail.inputDescription}}</el-card>
+        </el-row>
+        <el-row>
+          <h4>输出描述</h4>
+          <el-card>{{problemDetail.outputDescription}}</el-card>
+        </el-row>
+        <el-row>
+          <h4>示例</h4>
+          <el-card>
+            <el-table
+                ref="filterTable"
+                :data="problemDetail.examples">
+              <el-table-column
+                  prop="explanation"
+                  label="例子">
+              </el-table-column>
+              <el-table-column
+                  prop="inputData"
+                  label="输入数据">
+              </el-table-column>
+              <el-table-column
+                  prop="outputData"
+                  label="输出数据">
+              </el-table-column>
+            </el-table>
+          </el-card>
+        </el-row>
+      </el-col>
 
-<div><h3>题目描述：</h3></div>
-<el-row type="flex" class="row-bg">
-  <el-col :span="20" :offset="1"><div class="grid-content bg-purple-light">
-       <h4>{{problemDetail.problemDescription}}</h4>
-      </div></el-col>
-</el-row>
-<div><h3>输入描述：</h3></div>
-<el-row type="flex" class="row-bg">
-  <el-col :span="20" :offset="1"><div class="grid-content bg-purple-light">
-     <h4>{{problemDetail.inputDescription}}</h4>
-      </div></el-col>
-</el-row>
-<div><h3>输出描述：</h3></div>
-<el-row type="flex" class="row-bg">
-  <el-col :span="20" :offset="1"><div class="grid-content bg-purple-light">
-      <h4>{{problemDetail.outputDescription}}</h4>
-      </div></el-col>
-</el-row>
-<div><h3>例子描述：</h3></div>
-<el-row type="flex" class="row-bg">
- <el-table
-    ref="filterTable"
-    :data="problemDetail.examples"
-    style="width: 100%">
-    <el-table-column
-      prop="explanation"
-      label="例子"
-      width="180">
-    </el-table-column>
-    <el-table-column
-      prop="inputData"
-      label="输入数据"
-      width="180">
-    </el-table-column>
-    <el-table-column
-      prop="outputData"
-      label="输出结果"
-      width="180">
-    </el-table-column>
-
-  </el-table>
-</el-row>
-<div style="margin: 60px 0;"></div>
-<div>
-<el-row>
-  <el-col :span="3" ><div class="grid-content bg-purple-light"><h3>输入代码</h3></div></el-col>
-</el-row>
-<el-row>
-  <el-col :span="3"><div class="grid-content bg-purple-light">
-    <div class="sub-title"><h3>选择语言</h3></div></div>
-    </el-col>
-    <el-col :span="6">
-    <el-autocomplete
-      class="inline-input"
-      v-model="language"
-      :fetch-suggestions="querySearch"
-      placeholder="请输入内容"
-      @select="handleSelect"
-    ></el-autocomplete>
-
-  </el-col>
-</el-row>
-  <div>
-    <div></div>
-    <el-input
-    type="textarea"
-    :autosize="{ minRows: 20, maxRows: 40}"
-    placeholder="请输入内容"
-    v-model="code">
-  </el-input>
+        <!-- 代码提交 -->
+      <el-col class="right-content">
+        <el-row type="flex" justify="space-between">
+          <el-autocomplete
+              v-model="language"
+              placeholder="请选择语言"
+              :fetch-suggestions="querySearch"
+              @select="handleSelect">
+          </el-autocomplete>
+          <el-button type="primary" @click="submitCode()">提交代码</el-button>
+        </el-row>
+        <el-cow>
+          <el-input
+              type="textarea"
+              v-model="code">
+          </el-input>
+        </el-cow>
+      </el-col>
+    </el-row>
   </div>
-</div>
-<el-button @click="submitCode()" >提交代码</el-button>
-</div>
-
 </template>
 
 <script>
@@ -99,7 +83,7 @@ data(){
        code: '',
        problemDetail:[],
        restaurants: [],
-      language: '',
+       language: '',
     }
 },
   mounted() {
@@ -140,7 +124,7 @@ methods:{
             if(res.data.code == '200'){
               this.$router.push('/situation');//跳转到状态
             }else{
-              alert('用户名或密码错误。');
+              alert('代码有误，请检查。');
             }
           })
      },
@@ -171,32 +155,30 @@ methods:{
 }
 </script>
 
-<style>
-
-  .el-row {
-  margin-bottom: 20px;
-  }
-  .el-row > last-child {
-    margin-bottom: 0;
-  }
-  .el-col {
-    border-radius: 4px;
-  }
-  .bg-purple-dark {
-    background: #99a9bf;
-  }
-  .bg-purple {
-    background: #d3dce6;
-  }
-  .bg-purple-light {
-    background: #e5e9f2;
-  }
-  .grid-content {
-    border-radius: 4px;
-    min-height: 36px;
-  }
-  .row-bg {
-    padding: 20px 0;
-    background-color: #f9fafc;
-  }
+<style scoped>
+.container{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.row-title{
+  width: 100%;
+  text-align: center;
+  color: 	#708090;
+}
+.left-content{
+  margin: 0 10px;
+}
+.right-content{
+  display: flex;
+  flex-direction: column;
+  margin: 0 10px;
+}
+span{
+  font-size: 18px;
+  font-weight: bold;
+}
+h3{color:	#4682B4}
+h4{color: 	#4682B4}
+.el-card{color: #778899}
 </style>
