@@ -59,7 +59,7 @@ import Qs from 'qs'
             axios({url:'http://8.129.147.77/showTestData/ ',//数据请求有问题
             method:'post', //然后method改成get
             headers:{'Content-Type':'application/x-www-form-urlencoded'},
-            data:Qs.stringify(data)
+            data:JSON.stringify(data),
               }).then((res) => {
               console.log(res);
               if(res.data.code == '200'){
@@ -80,9 +80,9 @@ deleteRow(index, rows) {
                 }
           axios({url:'http://8.129.147.77/deleteTestData/',//还没有测试过
           method:'post', //然后method改成get
-        //  headers:{'Content-Type':"application/json;charset=UTF-8"},
-          headers:{'Content-Type':'application/x-www-form-urlencoded'},
-          data:Qs.stringify(data)
+         headers:{'Content-Type':"application/json;charset=UTF-8"},
+          // headers:{'Content-Type':'application/x-www-form-urlencoded'},
+          data:JSON.stringify(data)
             }).then((res) => {
             console.log(res)
             if(res.data.code == '200'){
