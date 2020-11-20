@@ -13,7 +13,7 @@
         <el-checkbox v-model="checked">老师 / 管理员</el-checkbox>
         </el-form-item>
         <el-button @click="submitForm('ruleForm')">登录</el-button>
-        <el-button>忘记密码</el-button>
+        <el-button @click="forgetPassword()">忘记密码</el-button>
       </el-form>
     </div>
   </div>
@@ -99,7 +99,10 @@ export default {
             });
         }
   },
-
+    // 忘记密码
+  forgetPassword(){
+    this.$router.push('/forgetPass');
+  }
 }
 </script>
 

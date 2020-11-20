@@ -13,7 +13,7 @@ import situation from '../views/problem/situation.vue'
 import help from '../views/user/help.vue'
 import register from '../views/index/register.vue'
 import login from '../views/index/login.vue'
-import foot from '../components/foot.vue'
+import forgetPass from '../views/user/forgetPass.vue'
 
 Vue.use(VueRouter)
 axios.defaults.withCredentials=true;
@@ -91,8 +91,8 @@ const routes = [
         }
     },
     {
-        path: '/foot',
-        component: foot
+        path: '/forgetPass',
+        component: forgetPass
     }
 ]
 
