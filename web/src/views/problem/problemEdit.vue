@@ -105,11 +105,13 @@ methods:{//先请求原本是题目描述然后再把他显示在上面
           let data={//在data里面用键值对的形式写要写的参数
           problemTitle:this.proTitle,
           memoryLimit:this.imRoom,
-          timeLimit:this.imtime,
+          timeLimit:this.imTime,
           problemDescription:this.dePro,
           inputDescription:this.dein,
           outputDescription:this.deout,
+          problemId:this.id
         }
+        console.log(data)
           axios({url:'http://8.129.147.77/alterQuestions/',//post这里写请求网址
           method:'post', //然后method改成get
         //  headers:{'Content-Type':"application/json;charset=UTF-8"},

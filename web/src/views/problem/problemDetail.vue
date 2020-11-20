@@ -125,11 +125,12 @@ methods:{
           var  storage = window.localStorage;
           var username = storage.getItem('username');
           let data ={
-            userName:username,
-            problemId:this.problemId,
+            // userName:username,
+            problemId:this.id,
             code:this.code,
             language:this.language,
             }
+          console.log(data)
           axios({url:'http://8.129.147.77/submitCode/ ',//post这里写请求网址
           method:'post', //然后method改成get
           headers:{'Content-Type':'application/x-www-form-urlencoded'},
@@ -156,10 +157,9 @@ methods:{
       },
       loadAll() {
         return [
-          { "value": "Python", "address": "0" },
-          { "value": "C", "address": "2" },
-          { "value": "Java", "address": "1" },
-          { "value": "C++", "address": "3" }
+          { "value": "C", "address": "1" },
+          { "value": "C++", "address": "2" },
+         { "value": "Python3", "address": "3" },
         ];
       },
        handleSelect(item) {

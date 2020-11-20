@@ -12,12 +12,12 @@
     style="width: 100%" >
     <el-table-column
       fixed
-      prop="problemId"
+      prop="number"
       label="数据编号"
       width="150">
     </el-table-column>
     <el-table-column
-      prop="name"
+      prop="isExample"
       label="是否为例子"
       width="100">
     </el-table-column> 
@@ -32,7 +32,7 @@
     </el-table-column>   
     <el-table-column
       fixed="right"
-      label="删除题目"
+      label="删除数据"
       width="80">
       <template slot-scope="scope">
         <el-button type="danger" icon="el-icon-delete" circle
@@ -56,7 +56,7 @@ import Qs from 'qs'
           problemId:this.$route.params.problemId
           }
           console.log(this.$route.params.problemId)
-            axios({url:'http://8.129.147.77/showTestData/ ',//post这里写请求网址
+            axios({url:'http://8.129.147.77/showTestData/ ',//数据请求有问题
             method:'post', //然后method改成get
             headers:{'Content-Type':'application/x-www-form-urlencoded'},
             data:Qs.stringify(data)
@@ -75,10 +75,10 @@ deleteRow(index, rows) {
           center: true
         }).then(() => {
         let data={//在data里面用键值对的形式写要写的参数
-        problemId: rows[index].problemId,
+        problemId: rows[index].number,//数据的号码
         isExample:rows[index].isExample
                 }
-          axios({url:'http://8.129.147.77/deleteTestData/',//post这里写请求网址
+          axios({url:'http://8.129.147.77/deleteTestData/',//还没有测试过
           method:'post', //然后method改成get
         //  headers:{'Content-Type':"application/json;charset=UTF-8"},
           headers:{'Content-Type':'application/x-www-form-urlencoded'},
@@ -89,10 +89,10 @@ deleteRow(index, rows) {
               rows.splice(index, 1);
               this.$message({
               type: 'success',
-              message: '添加成功!'
+              message: '删除成功!'
             });
             }else{
-              alert('出现错误。');
+              alert('出现错误');
             }
         })
         }).catch(() => {
@@ -106,12 +106,16 @@ deleteRow(index, rows) {
         this.$router.push("/dataPlus/" + rows[index].problemId); //跳转页面
       },
       plusData(){
-        this.$router.push("/dataPlus/"+ '005'); //跳转页面
+        this.$router.push("/dataPlus/"+ 'new'); //跳转页面如果传入000表示新添加
+        // this.$router.push("/dataPlus/");
       }
     },
     data() {
       return {
-        dataList: []
+        dataList: [{number: 1,
+                    isExample:'是'},
+                    {number: 2,
+                    isExample:'是'}]
       }
     }
   }

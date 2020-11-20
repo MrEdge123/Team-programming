@@ -79,13 +79,15 @@ export default {
                         }).then((res) => {
                         console.log(res);
                         if(res.data.code == '200'){
-                          var ses = window.localStorage;
-                          var id = JSON.stringify(data.username);
-                          var pass = JSON.stringify(data.password)
-                          ses.setItem("username",id);
-                          ses.setItem("password",pass);
                           if(!isadmin){this.$router.push('/home');}
                           else{this.$router.push('/problemAdd');}
+                          var ses = window.localStorage;
+                          var id = JSON.stringify(data.username);
+                          var pass = JSON.stringify(data.password);
+                          var isadmin = JSON.stringify(data.isAdmin)
+                          ses.setItem("username",id);
+                          ses.setItem("password",pass);
+                          ses.setItem("isAdmin",isadmin); 
                         }else{
                           this.$message.error('用户名或密码错误。');
                         }

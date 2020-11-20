@@ -2,10 +2,10 @@
     <div class="help-container">
       <div class="help-btns">
         <el-button @click="router">修改个人信息</el-button>
-        <el-button @click="logout">退出登录</el-button>
-        <el-button @click="adminLogin">管理员登录</el-button>
+        <!-- <el-button @click="logout">退出登录</el-button> -->
+        <!-- <el-button @click="adminLogin">管理员登录</el-button> -->
       </div>
-      <div class="help-content" id="content">
+      <!-- <div class="help-content" id="content">
         <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm">
           <el-form-item label="用户名" prop="username" id="username">
             <el-input v-model="ruleForm.username"></el-input>
@@ -15,8 +15,8 @@
           </el-form-item>
           <el-button @click="submitForm('ruleForm')">登录</el-button>
         </el-form>
-      </div>
-    </div>
+      </div>-->
+    </div> 
 </template>
 
 <script>
@@ -104,7 +104,8 @@ export default {
               // var adminStyle = document.getElementsByClassName('help-content');
               // adminStyle.style.display = 'block';
               document.getElementById('content').style.display = 'flex';
-        }
+        },
+        router(){}
   },
 
 }

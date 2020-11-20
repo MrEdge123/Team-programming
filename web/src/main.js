@@ -24,3 +24,16 @@ new Vue({
   render: h => h(App),
 }).$mount('#app')
 
+router.beforeEach((to, from , next) => {
+  if (to.path === "/login") {next();}
+  else { // 判断该路由是否需要登录权限
+  if (to.meta.isLogin && !localStorage.getItem("username")) { // 判断当前的token是否存在
+  next({
+  path: "/login",
+  query: {redirect: to.fullPath} // 将跳转的路由path作为参数，登录成功后跳转到该路由
+  });
+  }else{
+  next();
+  }
+  }
+  });
