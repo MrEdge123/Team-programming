@@ -62,7 +62,8 @@
         <el-cow>
           <el-input
               type="textarea"
-              v-model="code">
+              v-model="code"
+              :autosize="{ minRows: 10}">
           </el-input>
         </el-cow>
       </el-col>
