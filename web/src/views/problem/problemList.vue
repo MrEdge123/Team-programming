@@ -71,7 +71,7 @@ export default {
         this.$router.push("/problemDetail/" + row.problemId); //跳转页面
     },
     addProblem(){
-      this.$router.push({path:"/problemAdd",query:{problemId: problemList.problemId}});
+      this.$router.push({path:"/problemAdd",query:{problemId:this.problemList.problemId}});
     }
 
   },

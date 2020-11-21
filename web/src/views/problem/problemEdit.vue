@@ -82,17 +82,33 @@ import axios from 'axios'
 import Qs from 'qs'
 export default {
 data(){
-    return{
+    return{//初值不能赋空
         id: this.$route.params.problemId,
-        proTitle:'',//题目
-        imTime:'',//时间限制
-        imRoom:'',//空间限制
-        dePro:'',//问题描述
-        dein:'',//输入描述
-        deout:'',//输出描述
+        problemDetail:[],//获取初值
+        proTitle:null,//题目
+        imTime:null,//时间限制
+        imRoom:null,//空间限制
+        dePro:null,//问题描述
+        dein:null,//输入描述
+        deout:null,//输出描述
     }
 },
+created(){
+  // this.init()
+  },
 methods:{//先请求原本是题目描述然后再把他显示在上面
+    init(id){
+          console.log(id)
+          axios({url:'http://8.129.147.77/getDetails/',//post这里写请求网址
+          method:'get', //然后method改成get
+          headers:{'Content-Type':"application/json;charset=UTF-8"},
+          params:{problemId:id},
+          withCredentials : true
+          }).then(res=>{
+              this.problemDetail = res.data.data;
+              console.log(res);
+            })
+    },
     editPro(){
         this.$confirm('请确保修改, 是否继续?', '提示', {
           confirmButtonText: '确定',

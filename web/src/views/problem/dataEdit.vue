@@ -85,7 +85,7 @@ deleteRow(index, rows) {
           method:'post', //然后method改成get
         //  headers:{'Content-Type':"application/json;charset=UTF-8"},
           headers:{'Content-Type':'application/x-www-form-urlencoded'},
-          data:JSON.stringify(data)
+          data:Qs.stringify(data)
             }).then((res) => {
             // console.log(res)
             if(res.data.code == '200'){

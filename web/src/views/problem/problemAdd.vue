@@ -72,7 +72,7 @@ axios.defaults.withCredentials = true
             })
     },
 deleteRow(index, rows) {
-        this.$confirm('请确保添加, 是否继续?', '提示', {
+        this.$confirm('是否继续删除?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning',
@@ -92,7 +92,7 @@ deleteRow(index, rows) {
               rows.splice(index, 1);
               this.$message({
               type: 'success',
-              message: '添加成功!'
+              message: '删除成功!'
             });
             }else{
               alert('出现错误。');
