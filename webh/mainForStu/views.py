@@ -69,16 +69,10 @@ class DetailsView(View):
             ret = {"code": "200", "msg": "用户登录"}
 
             examples_data = []
-            pno = request.GET.get("problemId", "")
+            pno = request.POST.get("problemId", "")
 
-
-            problem = ProblemsContent.objects.filter(problemId=pno) 
-            if len(problem) == 0:
-                
-                ret = {"code": "400", "msg": "problemId错误"} 
-                return HttpResponse(json.dumps(ret, ensure_ascii=False)) 
-           
-            problem_dict = model_to_dict(problem[0])
+            problem = ProblemsContent.objects.filter(problemId=pno)
+            problem_dict = model_to_dict(problem)
 
             # 如果题目存在例子则获取例子
             examples = ProblemTestData.objects.filter(problemId=pno, isExample=1)
@@ -120,7 +114,7 @@ class StateView(View):
             data = []
 
             stateList = SubmitStatus.objects.values("userName","judgeResult","problemId","usedMemory",
-                                                    "usedTime","language", "submitTime")
+                                                    "usedTime","language", "submitTime").order_by("-submitTime")
             # print(stateList)
             for i in range(len(stateList)):
                 # print(stateList[i])
@@ -129,7 +123,7 @@ class StateView(View):
                 # print(problem_dict)
                 data.append(stateList[i])
             ret = {"code": "200", "msg": "用户登录", "data": data}
-            return HttpResponse(json.dumps(ret, ensure_ascii=False, cls=DateEncoder))
+            return HttpResponse(json.dumps(ret, ensure_ascii=False))
 
         ret = {"code": "400", "msg": "用户未登录"}
         return HttpResponse(json.dumps(ret, ensure_ascii=False))
@@ -137,14 +131,3 @@ class StateView(View):
     def post(self, request):
         pass
 
-class DateEncoder(json.JSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, datetime.datetime):
-            return obj.strftime('%Y-%m-%d %H:%M:%S')
-
-        elif isinstance(obj, datetime.date):
-            return obj.strftime("%Y-%m-%d")
-
-        else:
-            return json.JSONEncoder.default(self, obj)
-            
