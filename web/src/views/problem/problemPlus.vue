@@ -117,6 +117,7 @@ methods:{
             type: 'success',
             message: '添加成功!'
           });
+          this.$router.go(-1);
           }else{
             alert('出现错误。');
           }
