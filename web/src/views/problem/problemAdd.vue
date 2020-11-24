@@ -62,7 +62,7 @@ axios.defaults.withCredentials = true
     },
     methods: {
       init(){ 
-          axios({url:'http://8.129.147.77/getproblemlist',//post这里写请求网址
+          axios({url:'http://8.129.147.77/getproblemlist/',//post这里写请求网址
           method:'get', //然后method改成get
           headers:{'Content-Type':"application/json;charset=UTF-8"},
           withCredentials : true
