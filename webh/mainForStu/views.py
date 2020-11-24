@@ -1,4 +1,5 @@
 import json
+import datetime
 
 from django.forms import model_to_dict
 from django.http import HttpResponse
@@ -10,7 +11,6 @@ from django.views import View
 from django.contrib.auth.decorators import login_required
 from mainForStu.models import ProblemsContent, ProblemTestData,SubmitStatus
 
-import datetime
 #学生界面获取总题目
 class MainView(View):
 
@@ -120,7 +120,7 @@ class StateView(View):
             data = []
 
             stateList = SubmitStatus.objects.values("userName","judgeResult","problemId","usedMemory",
-                                                    "usedTime","language", "submitTime")
+                                                    "usedTime","language", "submitTime").order_by("-submitTime")
             # print(stateList)
             for i in range(len(stateList)):
                 # print(stateList[i])
