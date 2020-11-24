@@ -13,7 +13,7 @@ import situation from '../views/problem/situation.vue'
 import help from '../views/user/help.vue'
 import register from '../views/index/register.vue'
 import login from '../views/index/login.vue'
-import forgetPass from '../views/user/forgetPass.vue'
+
 
 Vue.use(VueRouter)
 axios.defaults.withCredentials=true;
@@ -89,10 +89,6 @@ const routes = [
         meta: {
           isLogin: false
         }
-    },
-    {
-        path: '/forgetPass',
-        component: forgetPass
     }
 ]
 

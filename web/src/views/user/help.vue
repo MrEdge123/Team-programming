@@ -1,7 +1,7 @@
 <template class="help">
     <div class="help-container">
       <div class="help-btns">
-        <el-button @click="router">修改个人信息</el-button>
+        <el-button>修改个人信息</el-button>
       </div>
       <!-- <Code></Code> -->
     </div>
