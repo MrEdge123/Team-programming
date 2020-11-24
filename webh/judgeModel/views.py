@@ -148,6 +148,7 @@ class SubmitCodeView(View):
             os.remove(path + "/" + fileName)
         
         os.rmdir(path)
+        
 
         return True
 
@@ -247,7 +248,7 @@ class SubmitCodeView(View):
                 answerFile.write(data.outputData)
             
             # 评测一组数据
-            tmp_result = self.runJudge(path, language, timeLimit, memoryLimit)
+            tmp_result = self.runJudge(path, language, timeLimit, memoryLimit, "ignore-space")
             if tmp_result["result"] != "AC":
                 result = tmp_result
                 break

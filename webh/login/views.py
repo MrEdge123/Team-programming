@@ -15,8 +15,7 @@ class RegisterView(View):
 
     def get(self, request):
         # print("------get--------")
-        # return render(request, "register.html", {})
-        pass
+        return render(request, "register.html", {})
 
     def post(self, request):
         # print("------post--------")
@@ -45,8 +44,7 @@ class LoginView(View):
 
     def get(self, request):
         # print("------get--------")
-        # return render(request, "login.html", {})
-        pass
+        return render(request, "login.html", {})
 
 
     def post(self, request):
@@ -63,17 +61,15 @@ class LoginView(View):
             obj = User.objects.filter(userName=username, userPassWord=password, isAdmin=isAdmin)
             # print(obj)
         except:
-            ret = {"code": "400", "msg": "获取数据失败"}
-            return HttpResponse(json.dumps(ret, ensure_ascii=False))
+            return render(request, "login.html", {})
 
-        if len(obj) != 0:
+        if User.objects.filter(userName=username, userPassWord=password, isAdmin=isAdmin):
             # print(obj[0].userName)
             login(request, obj[0])
             # print(request.user.userName)
             request.session['username'] = username
             # request.session['user'] = obj[0]
-            session_key = request.session.session_key
-            ret = {"code": "200", "msg": "登录成功", "data": {"sessionid":session_key}}
+            ret = {"code": "200", "msg": "登录成功"}
 
         return HttpResponse(json.dumps(ret, ensure_ascii=False))
         # return render(request, "main.html", {})
@@ -83,13 +79,12 @@ class LoginView(View):
 class LoginForTeacher(View):
 
     def get(self, request):
-        # print("------get--------")
-        # return render(request, "login.html", {})
-        pass
+        print("------get--------")
+        return render(request, "login.html", {})
 
 
     def post(self, request):
-        # print("------post--------")
+        print("------post--------")
         ret = {"code": "200", "msg": "登陆成功"}
 
         username = request.POST.get("username", "")
@@ -100,9 +95,7 @@ class LoginForTeacher(View):
             obj = User.objects.filter(userName=username, userPassWord=password, isAdmin=1)
             print(obj)
         except:
-            ret = {"code": "400", "msg": "获取数据失败"}
-            return HttpResponse(json.dumps(ret, ensure_ascii=False))
-        
+            return render(request, "login.html", {})
         if len(obj) == 0:
             ret = {"code": "400", "msg": "用户名或密码错误"}
 
@@ -114,7 +107,7 @@ class LoginForTeacher(View):
 class LogoutView(View):
 
     def get(self, request):
-        # print("------get--------")
+        print("------get--------")
         logout(request)
         request.session.flush()
         return render(request, "login.html", {})
@@ -124,7 +117,7 @@ class LogoutView(View):
 class JudgeInfo(View):
 
     def post(self, request):
-        # print("------post--------")
+        print("------post--------")
         ret = {"code": "200", "msg": "注册成功"}
         username = request.POST.get("username", "")
         email = request.POST.get("email", "")
@@ -142,11 +135,9 @@ class JudgeInfo(View):
             elif phone != '':
                 obj = User.objects.filter(userPhone=phone)
                 ret = {"code": "400", "msg": "手机号已存在"}
-            # print(obj)
+            print(obj)
         except:
-            ret = {"code": "400", "msg": "获取数据失败"}
-            return HttpResponse(json.dumps(ret, ensure_ascii=False))
-        
+            return render(request, "login.html", {})
         if len(obj) == 0:
             ret = {"code": "200", "msg": "符合要求"}
 
@@ -158,7 +149,7 @@ class JudgeInfo(View):
 class ModifyInformation(View):
 
     def get(self, request):
-        # print("------get--------")
+        print("------get--------")
         ret = {"code": "200", "msg": "跳转成功"}
 
         # result = request.session.get('username', 'null')
@@ -167,13 +158,13 @@ class ModifyInformation(View):
             return HttpResponse(json.dumps(ret, ensure_ascii=False))
 
         username = request.session.get('username')
-        # print(username)
+        print(username)
 
         try:
             obj = User.objects.filter(userName=username, isAdmin=0)
-            # print(obj)
+            print(obj)
         except:
-            ret = {"code": "400", "msg": "获取数据失败"}
+            ret = {"code": "400", "msg": "系统出错"}
             return HttpResponse(json.dumps(ret, ensure_ascii=False))
 
         if len(obj) == 0:
@@ -187,7 +178,7 @@ class ModifyInformation(View):
 
 
     def post(self, request):
-        # print("------post--------")
+        print("------post--------")
         ret = {"code": "200", "msg": "修改成功"}
 
         username = request.POST.get("username", "")
@@ -195,11 +186,11 @@ class ModifyInformation(View):
         password = request.POST.get("password", "")
         email = request.POST.get("email", "")
         phone = request.POST.get("phone", "")
-        # print(username, nickname, password, email, phone)
+        print(username, nickname, password, email, phone)
 
         try:
             obj = User.objects.filter(userName=username, isAdmin=0).update(userNickName=nickname, userEmail=email, userPhone=phone)
-            # print(obj)
+            print(obj)
         except:
             ret = {"code": "400", "msg": "修改失败"}
             return HttpResponse(json.dumps(ret, ensure_ascii=False))
