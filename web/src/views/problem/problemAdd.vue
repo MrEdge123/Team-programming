@@ -4,7 +4,7 @@
   <br>
   <el-row  type="flex" justify="end">
     <el-col :span="3">
-    <el-button icon="el-icon-circle-plus" 
+    <el-button icon="el-icon-circle-plus"
     @click.native.prevent="plusProblem()">新建题目</el-button></el-col>
   </el-row>
   <el-table
@@ -20,7 +20,7 @@
       prop="problemTitle"
       label="题目标题"
       width="300">
-    </el-table-column> 
+    </el-table-column>
     <el-table-column
       fixed="right"
       label="编辑题目"
@@ -38,7 +38,7 @@
         <el-button type="primary" icon="el-icon-edit" circle
         @click.native.prevent="editData(scope.$index, problemList )" size="small"></el-button>
       </template>
-    </el-table-column>   
+    </el-table-column>
     <el-table-column
       fixed="right"
       label="删除题目"
@@ -61,8 +61,8 @@ axios.defaults.withCredentials = true
     this.init()
     },
     methods: {
-      init(){ 
-          axios({url:'http://8.129.147.77/getproblemlist',//post这里写请求网址
+      init(){
+          axios({url:'http://8.129.147.77/getproblemlist/',//post这里写请求网址
           method:'get', //然后method改成get
           headers:{'Content-Type':"application/json;charset=UTF-8"},
           withCredentials : true
