@@ -276,21 +276,26 @@ class alterTestData(View):
     def post(self, request):
         try:
             problemId = request.POST.get('problemId','')
-            xiu_obj = ProblemTestData.objects.get(problemId=int(problemId))
+            number = request.POST.get('number', '')
+            xiu_obj = ProblemTestData.objects.get(problemId=int(problemId),number=int(number))
 
-            number = request.POST.get('number','')
             inputData = request.POST.get('inputData','')
             outputData = request.POST.get('outputData','')
             isExample = request.POST.get('isExample', '')
             explanation = request.POST.get('explanation','')
 
-            
+
+
             xiu_obj.problemId = int(problemId)
-            xiu_obj.inputData = inputData
             xiu_obj.number = int(number)
-            xiu_obj.outputData = outputData
-            xiu_obj.isExample = isExample
-            xiu_obj.explanation = explanation
+            if inputData!='':
+                xiu_obj.inputData = inputData
+            if outputData != '':
+                xiu_obj.outputData = outputData
+            if isExample != '':
+                xiu_obj.isExample = isExample
+            if explanation != '':
+                xiu_obj.explanation = explanation
 
 
             xiu_obj.save()
