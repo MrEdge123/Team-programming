@@ -5,12 +5,14 @@
       <div class="search">
         <el-row :gutter="50">
           <el-col :span="8">
-            <el-input placeholder="请输入题目编号" v-model="problemList.data">
-              <el-button slot="append" icon="el-icon-search" @click="init()"></el-button>
+            <template >
+            <el-input placeholder="请输入题目编号" v-model="pronum" >
+              <el-button slot="append" icon="el-icon-search" ></el-button>
             </el-input>
+            </template>
           </el-col>
           <el-col :span="8">
-            <el-input placeholder="请输入题目标题">
+            <el-input placeholder="请输入题目标题" v-model="protit">
               <el-button slot="append" icon="el-icon-search"></el-button>
             </el-input>
           </el-col>
@@ -22,6 +24,11 @@
         :data="problemList"
         style="width: 100%"
         @row-click="detileTrans">
+          <!-- <el-table-column
+          label="题目序号"
+          type="index"
+          width="100">
+          </el-table-column> -->
           <el-table-column
             prop="problemId"
             label="题目编号"
@@ -51,6 +58,9 @@ export default {
         inputId: '',
         inputTitle:'',
         problemList:[], //列表
+        search1:'',
+        pronum:'',
+        protit:''
     };
   },
   mounted() {
@@ -69,9 +79,6 @@ export default {
     },
     detileTrans(row) {
         this.$router.push("/problemDetail/" + row.problemId); //跳转页面
-    },
-    addProblem(){
-      this.$router.push({path:"/problemAdd",query:{problemId:this.problemList.problemId}});
     }
 
   },

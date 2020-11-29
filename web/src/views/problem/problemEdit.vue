@@ -94,11 +94,11 @@ data(){
     }
 },
 created(){
-  // this.init()
+   this.init(this.$route.params.problemId)
   },
 methods:{//先请求原本是题目描述然后再把他显示在上面
     init(id){
-          console.log(id)
+          // console.log(id)
           axios({url:'http://8.129.147.77/getDetails/',//post这里写请求网址
           method:'get', //然后method改成get
           headers:{'Content-Type':"application/json;charset=UTF-8"},
@@ -107,6 +107,12 @@ methods:{//先请求原本是题目描述然后再把他显示在上面
           }).then(res=>{
               this.problemDetail = res.data.data;
               console.log(res);
+              this.proTitle=res.data.data.problemTitle//题目
+              this.imTime=res.data.data.timeLimit//时间限制
+              this.imRoom=res.data.data.memoryLimit//空间限制
+              this.dePro=res.data.data.problemDescription//问题描述
+              this.dein=res.data.data.inputDescription//输入描述
+              this.deout=res.data.data.outputDescription//输出描述
             })
     },
     editPro(){

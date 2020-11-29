@@ -26,7 +26,7 @@ SECRET_KEY = '@am*5oj^l%@pu_9j&c^pvc0@(@5m^-@e4$#cnbk0i_0@fld_li'
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-
+# ALLOWED_HOSTS = ['8.129.147.77/static/index.html']
 
 # Application definition
 
@@ -47,13 +47,14 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.common.CommonMiddleware',
+    # 'django.middleware.common.CommonMiddleware',
     # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware'
 
 
@@ -102,6 +103,7 @@ CORS_ALLOW_HEADERS = (
         '*'
 )
 ROOT_URLCONF = 'webh.urls'
+APPEND_SLASH=False
 
 TEMPLATES = [
     {
@@ -129,7 +131,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'webh',
-        'HOST':'8.129.147.77',
+        'HOST':'127.0.0.1',
         'PORT':3306,
         'USER':'webh',
         'PASSWORD':'Sc74eFr6YZRnwrFX'
@@ -161,13 +163,13 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)

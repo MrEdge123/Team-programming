@@ -54,6 +54,7 @@ data(){
     return{
         number: this.$route.params.number,
         id: this.$route.params.problemId,
+        dataList:[],
         inputData:'',
         outputData:'',
         isExample:false,
@@ -61,10 +62,42 @@ data(){
         disabled:true
     }
 },
+created(){
+    this.init(this.$route.params.problemId,this.$route.params.number)
+  },
 methods:{
+    init(id,num){
+      if(num!=='new'){
+        let data ={
+          problemId:id
+          }
+          // console.log(this.$route.params.problemId)
+            axios({url:'http://8.129.147.77/showTestData/ ',//数据请求有问题
+            method:'post', //然后method改成get
+            headers:{'Content-Type':'application/x-www-form-urlencoded'},
+            data:Qs.stringify(data),
+              }).then((res) => {
+              if(res.data.code == '200'){
+                this.dataList=res.data.data[num-1]
+                // console.log('成功')
+                console.log(this.dataList)
+                this.inputData=this.dataList.inputData;
+                this.outputData=this.dataList.outputData;
+                if(!this.dataList.isExample){//如果是否为例子是否
+                console.log(this.dataList.isExample)
+                this.isExample=false;
+                this.explanation=null;}
+                else{
+                console.log(this.dataList.isExample)
+                this.isExample=true;
+                this.disabled=false;
+                this.explanation=this.dataList.explanation;  
+                }
+
+              }
+          })
+    }}, 
   inputToDisabled(){//是否添加例子说明
-  // console.log(this.$route.params.problemId)
-  // console.log(this.$route.params.number)
         if(this.isExample){
           this.disabled=false;}
           else{
@@ -100,6 +133,7 @@ methods:{
               type: 'success',
               message: '添加成功!'
             });
+            this.$router.go(-1);
             }else{
               alert('出现错误');
             }
@@ -141,6 +175,7 @@ methods:{
               type: 'success',
               message: '修改成功!'
             });
+            this.$router.go(-1);
             }else{
               alert('出现错误');
             }
