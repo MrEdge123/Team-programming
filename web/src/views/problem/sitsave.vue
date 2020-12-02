@@ -20,21 +20,8 @@
         </el-col>
       </el-row>
     </div>
-     <!-- 题目搜索 -->
-    <div v-if="searchData.length>0">
-      <el-table :data="searchData" border stripe>
-        <el-table-column type="index" label="序号"></el-table-column>
-        <el-table-column label="用户名" prop="userName"></el-table-column>
-        <el-table-column label="题目编号" prop="problemId"></el-table-column>
-        <el-table-column label="运行结果" prop="judgeResult"></el-table-column>
-        <el-table-column label="消耗内存" prop="usedMemory"></el-table-column>
-        <el-table-column label="运行时间" prop="usedTime"></el-table-column>
-        <el-table-column label="使用语言" prop="language"></el-table-column>
-        <el-table-column label="提交时间" prop="submitTime"></el-table-column>
-      </el-table>
-    </div>
+
      <!-- 题目提交状态 -->
-    <div v-else>
       <el-table :data="tableData" border stripe>
         <el-table-column type="index" label="序号"></el-table-column>
         <el-table-column label="用户名" prop="userName"></el-table-column>
@@ -45,8 +32,6 @@
         <el-table-column label="使用语言" prop="language"></el-table-column>
         <el-table-column label="提交时间" prop="submitTime"></el-table-column>
       </el-table>
-    </div>
-
   </el-card>
 </template>
 
@@ -61,7 +46,7 @@ export default {
       return {
         tableData:[],
         search: '',
-        searchData: []
+        searchData: ''
       }
     },
     methods: {
@@ -96,16 +81,17 @@ export default {
       // 搜索功能
       searchBtn(){
         var search = this.search;
+        var userName = [];
+        this.tableData.map((item) => {
+          userName += item.userName + ','
+        })
+        // console.log(userName);
         if(search){
-          this.searchData = this.tableData.filter(function(product){
-            // console.log(product);
-            return Object.keys(product).some(function(key){
+          this.searchData = this.tableData.filter((res) =>{
+            console.log(res);
+            return Object.keys(res).some((key) => {
               // console.log(key);
-              return(
-                String(product[key])
-                .toLowerCase()
-                .indexOf(search) > -1
-              );
+              return String(res[key]).toLowerCase().indexOf(search) > -1
             })
           })
         }
