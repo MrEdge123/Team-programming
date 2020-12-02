@@ -25,6 +25,12 @@ class RegisterView(View):
         phone = request.POST.get("phone", "")
         name = request.POST.get("name", "")
         # print(username, password, name, email, phone)
+
+        obj = User.objects.filter(userName=username)
+        if len(obj):
+            ret = {"code": "400", "msg": "用户已存在"}
+            return HttpResponse(json.dumps(ret, ensure_ascii=False))
+
         user = User()
         user.userName = username
         user.userPassWord = password
