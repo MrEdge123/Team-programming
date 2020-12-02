@@ -102,7 +102,6 @@ export default {
         submitForm(formname){
             this.$refs[formname].validate((valid) => {
                 if(valid){
-                    alert('注册成功');
                     console.log(this.ruleForm);
                     let data={//在data里面用键值对的形式写要写的参数
                         username: this.ruleForm.username,
@@ -116,7 +115,10 @@ export default {
                         data:Qs.stringify(data)
                         }).then((res) => {
                         console.log(res);
-                        this.$router.push('/login');
+                        if(res.data.code==200){alert('注册成功');
+                        this.$router.push('/login');}else{
+                            alert(res.data.msg);
+                        }
                     })
                 }else{
                     alert('err');
