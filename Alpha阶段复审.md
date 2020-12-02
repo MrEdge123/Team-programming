@@ -1,6 +1,6 @@
 | 小组名字 | 项目 | 优点 | 缺点 | 排名 |
 | -- | -- | -- | -- | -- | -- |
-| [广工扫“蝗”小分队](https://www.cnblogs.com/happyzhangtian/p/13850037.html) | [大学生综合平台](https://www.cnblogs.com/happyzhangtian/p/14018156.html) | 1.界面UI比较美观，符合现代化设计<br>2.可以使用支付宝支付商品，方便快捷<br>3.Github的issue都有完成记录 | 1.未登录点击购物车菜单后，用全面屏的返回手势返回不了<br>2.Github上推的commit信息不明确<br>3.注册功能目前还不能使用，登录还不能测试 |
+| [广工扫“蝗”小分队](https://www.cnblogs.com/happyzhangtian/p/13850037.html) | [大学生综合平台](https://www.cnblogs.com/happyzhangtian/p/14018156.html) | 1.界面UI比较美观，符合现代化设计<br>2.可以使用支付宝支付商品，方便快捷<br>3.Github的issue都有完成记录 | 1.未登录点击购物车菜单后，用全面屏的返回手势返回不了<br>2.Github上推的commit信息不明确<br>3.注册时没有说明用户名必须是手机号码  |
 | [梦之航](https://www.cnblogs.com/deerc123/p/13849415.html) | [课程表小程序](https://www.cnblogs.com/mincong/p/14018022.html) | 1.界面清爽简洁<br>2.代码简单明了，有相应的注释 | 1.项目进度稍微缓慢<br>2.项目未上线，未能进行测试 |  |
 | [fumbleFish](https://www.cnblogs.com/polaris-973/p/13849773.html) | [端口扫描器:H4ck!](https://www.cnblogs.com/polaris-973/p/14018009.html) | | |  |
 | [智商OverFlow](https://www.cnblogs.com/AZhu-12138/p/13850048.html) | [失物招领小程序](https://www.cnblogs.com/AZhu-12138/p/14018158.html) |  |  |  |
